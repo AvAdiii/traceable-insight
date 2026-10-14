@@ -1,0 +1,44 @@
+[server]
+headless = true
+address = "localhost"
+runOnSave = false
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "minimal"
+
+[theme]
+font = "-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+headingFont = "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+codeFont = "ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace"
+baseFontSize = 15
+headingFontWeights = 600
+baseRadius = "10px"
+buttonRadius = "8px"
+showSidebarBorder = true
+
+[theme.light]
+primaryColor = "#0066CC"
+backgroundColor = "#F5F5F7"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#1D1D1F"
+borderColor = "#D9D9DE"
+linkColor = "#0066CC"
+
+[theme.light.sidebar]
+backgroundColor = "#ECECEF"
+secondaryBackgroundColor = "#FFFFFF"
+
+[theme.dark]
+primaryColor = "#4DA3FF"
+backgroundColor = "#1C1C1E"
+secondaryBackgroundColor = "#2C2C2E"
+textColor = "#F5F5F7"
+borderColor = "#3A3A3C"
+linkColor = "#4DA3FF"
+
+[theme.dark.sidebar]
+backgroundColor = "#232325"
+secondaryBackgroundColor = "#2C2C2E"

@@ -6,6 +6,7 @@ No scores or rankings of children are exposed.
 
 import json
 
+from ti.link import REVIEW_MIN
 from ti.state import STATES
 
 
@@ -92,8 +93,11 @@ def review_queue(conn) -> list[dict]:
             "SELECT m.mention_id, m.surface, m.candidates, l.line_id, l.source_file, l.ref, "
             "l.text, l.meta FROM mentions m JOIN source_lines l USING (line_id) "
             "WHERE m.status = 'review' ORDER BY l.line_id"):
-        cands = [{**names[cid], "child_id": cid} for cid, _ in json.loads(r["candidates"])
-                 if cid in names]
+        scored = json.loads(r["candidates"])
+        top = scored[0][1] if scored else 0
+        # Only plausible matches: close to the best score and above the review floor.
+        cands = [{**names[cid], "child_id": cid} for cid, sc in scored
+                 if cid in names and sc >= max(REVIEW_MIN, top - 10)]
         out.append({"mention_id": r["mention_id"], "surface": r["surface"],
                     "line_id": r["line_id"], "source_file": r["source_file"], "ref": r["ref"],
                     "text": r["text"], "meta": json.loads(r["meta"]), "candidates": cands})
@@ -116,3 +120,25 @@ def resolve_mention(conn, mention_id: int, child_id: str) -> None:
 def unlinked_facts(conn, mention_id: int) -> list[dict]:
     return [_fact_row(r) for r in conn.execute(FACT_SQL + "WHERE f.mention_id = ?",
                                                (mention_id,))]
+
+
+def resolved_mentions(conn) -> list[dict]:
+    """Coordinator decisions made in the review queue, newest first."""
+    return [dict(r) for r in conn.execute(
+        "SELECT m.mention_id, m.surface, m.child_id, c.first, c.surname, c.class, "
+        "l.line_id, l.source_file, l.ref, l.text FROM mentions m "
+        "JOIN source_lines l USING (line_id) JOIN children c ON c.child_id = m.child_id "
+        "WHERE m.status = 'override' ORDER BY m.mention_id DESC")]
+
+
+def undo_resolution(conn, mention_id: int) -> None:
+    """Send a resolved mention back to the review queue."""
+    m = conn.execute("SELECT m.surface, l.source_file, l.ref FROM mentions m "
+                     "JOIN source_lines l USING (line_id) WHERE mention_id = ?",
+                     (mention_id,)).fetchone()
+    conn.execute("DELETE FROM link_overrides WHERE source_file = ? AND ref = ? AND surface = ?",
+                 (m["source_file"], m["ref"], m["surface"]))
+    conn.execute("UPDATE mentions SET status = 'review', child_id = NULL WHERE mention_id = ?",
+                 (mention_id,))
+    conn.execute("UPDATE facts SET child_id = NULL WHERE mention_id = ?", (mention_id,))
+    conn.commit()

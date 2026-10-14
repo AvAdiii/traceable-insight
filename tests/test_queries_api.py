@@ -56,3 +56,19 @@ def test_api_endpoints(run_db, monkeypatch):
     assert c.get(f"/schools/school_t/sources/{line}").json()["line_id"] == line
     assert c.get("/schools/school_t/children/ZZZ").status_code == 404
     assert isinstance(c.get("/schools/school_t/review").json(), list)
+
+
+def test_review_candidates_are_plausible_only():
+    from ti.store import db as dbm
+    conn = dbm.connect(":memory:")
+    dbm.init(conn)
+    dbm.insert_children(conn, [
+        {"child_id": "A1", "first": "Ravi", "surname": "Kumar", "class": "6", "age": 11, "gender": "M"},
+        {"child_id": "A2", "first": "Ravi", "surname": "Shankar", "class": "6", "age": 11, "gender": "M"},
+        {"child_id": "A3", "first": "Tanvi", "surname": "Verma", "class": "6", "age": 11, "gender": "F"}])
+    from ti.ingest.parsers import SourceLine
+    ids = dbm.insert_lines(conn, [SourceLine("w.txt", "msg:1", "ravi aaya", "whatsapp", {})])
+    dbm.insert_mention(conn, ids[("w.txt", "msg:1")], "ravi", "review", None, 100,
+                       [("A1", 100), ("A2", 100), ("A3", 78)])
+    q = queries.review_queue(conn)
+    assert [c["child_id"] for c in q[0]["candidates"]] == ["A1", "A2"]
