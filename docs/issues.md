@@ -5,8 +5,8 @@ Each title starts with its tag. `scripts/create_issues.sh` creates these with `g
 
 | # | Title | Label | Priority | Milestone | Done when | Status |
 |---|---|---|---|---|---|---|
-| 1 | [A1] Define schemas and School A roster (25 fictional children, 1 coach, 1 PE teacher) | A1 Generator | Must | Hackathon 1 | `roster.csv` has 25 children with exactly one shared first name; schemas in spec | Done |
-| 2 | [A1] Generate attendance, coach forms and assessments from the roster | A1 Generator | Must | Hackathon 1 | 6 weekly sheets, 12 forms, 2 assessment rounds; same seed → same bytes | Done |
+| 1 | [A1] Define schemas and School A roster (25 fictional children, 1 coach, 1 PE teacher) | A1 Generator | Must | Hackathon 1 | `roster.csv` (25 children) + `staff.csv` (coach, PE teacher); schemas in `docs/schemas.md` | Done |
+| 2 | [A1] Generate attendance, coach forms and assessments from the roster | A1 Generator | Must | Hackathon 1 | 300 attendance rows, 12 forms, 50 assessment rows; same seed → same bytes | Done |
 | 3 | [A1] Generate Hinglish WhatsApp chat with name variants, fictional names and phone numbers | A1 Generator | Must | Hackathon 1 | ~200 messages, ~20% variant mentions, planted names survive the rewrite verbatim | Done |
 | 4 | [A1] Write ground_truth.json for planted cases | A1 Generator | Must | Hackathon 1 | every mention, conflict and gap logged; pipeline never reads it | Done |
 | 5 | [A1] Write the synthetic programme guideline with thresholds, marked as synthetic | A1 Generator | Must | Hackathon 1 | `guideline.md` (30 sections) + `thresholds.yaml`, both marked synthetic | Done |

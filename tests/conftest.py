@@ -11,13 +11,23 @@ def echo_hinglish(prompt: str) -> dict:
     return {"text": "aaj " + meaning.rstrip(".") + " hai"}
 
 
+@pytest.fixture(autouse=True, scope="session")
+def private_dir(tmp_path_factory):
+    """Keep test runs' private copies out of the repo's data/private."""
+    from ti import config
+    mp = pytest.MonkeyPatch()
+    mp.setattr(config, "PRIVATE_DIR", tmp_path_factory.mktemp("private"))
+    yield config.PRIVATE_DIR
+    mp.undo()
+
+
 @pytest.fixture
 def fake_llm():
     return FakeClient(fn=echo_hinglish)
 
 
 @pytest.fixture(scope="session")
-def school_dir(tmp_path_factory):
+def school_dir(tmp_path_factory, private_dir):
     """One generated school, shared by tests that only read it."""
     from ti.generator.__main__ import generate
     root = tmp_path_factory.mktemp("data")

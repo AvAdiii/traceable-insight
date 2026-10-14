@@ -30,7 +30,9 @@ def test_load_school_covers_every_source(school_dir):
     assert kinds == {"attendance", "coach_form", "assessment", "whatsapp", "guideline"}
     assert len(load_roster(school_dir)) == 25
     att = [l for l in lines if l.kind == "attendance"]
-    assert all(len(l.meta["marks"]) == 2 for l in att)
+    assert len(att) == 300  # 12 sessions x 25 children, as in the plan
+    assert all(len(l.meta["marks"]) == 1 for l in att)
+    assert len([l for l in lines if l.kind == "assessment"]) == 50  # 2 rounds x 25
     wa = [l for l in lines if l.kind == "whatsapp"]
     assert not any("+91 90000" in l.text or "https://" in l.text for l in wa)
     assert len([l for l in lines if l.kind == "guideline"]) == 30

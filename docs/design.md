@@ -52,5 +52,7 @@ Surfaces: light bg #F5F5F7 with card #FFFFFF; dark bg #1C1C1E with card #2C2C2E.
   whether the child's state changed, and every decision can be undone from the Decided list.
 - **Writing** (`writing.md`). Labels say what happens ("Link to child", "View source"). Empty
   states say what that means. Internal ids are never shown.
+- **Source files page** shows the raw inputs exactly as the pipeline receives them (demo
+  step 1), with no ground truth.
 - **Minimal display.** No scores, ranks or surnames in lists. Surnames appear only where
   needed to tell two children apart in the review queue.

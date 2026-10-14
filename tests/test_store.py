@@ -40,3 +40,10 @@ def test_reinit_on_populated_store(tmp_path):
     conn.commit()
     db.init(conn)
     assert conn.execute("SELECT COUNT(*) FROM facts").fetchone()[0] == 0
+
+
+def test_pseudonymise_whole_words_longest_first():
+    from ti.store.private import pseudonymise
+    text = "Ravi Kumar ran; Ravi K came late; Ravindra stayed"
+    out = pseudonymise(text, [("Ravi Kumar", "A03"), ("Ravi K", "A03")])
+    assert out == "[A03] ran; [A03] came late; Ravindra stayed"

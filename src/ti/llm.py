@@ -13,6 +13,9 @@ import httpx
 from ti import config
 
 
+THINKING_MODELS = {"qwen3", "deepseek-r1", "gpt-oss"}
+
+
 class OllamaUnavailable(RuntimeError):
     pass
 
@@ -48,9 +51,11 @@ class OllamaClient:
             return json.loads(path.read_text())
         body = {
             "model": self.model, "prompt": prompt, "system": system,
-            "format": "json", "stream": False, "think": False,
+            "format": "json", "stream": False,
             "options": {"temperature": 0, "seed": config.SEED},
         }
+        if self.model.split(":")[0] in THINKING_MODELS:
+            body["think"] = False  # reasoning traces only slow extraction down
         try:
             r = httpx.post(f"{self.url}/api/generate", json=body, timeout=self.timeout)
             r.raise_for_status()

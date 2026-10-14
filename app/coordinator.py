@@ -16,10 +16,12 @@ waiting = len(queries.review_queue(c)) if c else 0
 children = st.Page("school.py", title="Children", icon=":material/groups:", default=True)
 review = st.Page("review.py", title="Review names", icon=":material/person_search:",
                  url_path="review")
+sources = st.Page("sources.py", title="Source files", icon=":material/folder_open:",
+                  url_path="sources")
 check = st.Page("check.py", title="Ground-truth check", icon=":material/rule:",
                 url_path="check")
 
-nav = st.navigation([children, review, check], position="hidden")
+nav = st.navigation([children, review, sources, check], position="hidden")
 
 with st.sidebar:
     st.html("""<div class="brand"><div class="brand-t">Traceable Insight</div>
@@ -27,6 +29,7 @@ with st.sidebar:
     st.page_link(children)
     st.page_link(review, label=f"Review names · {waiting} waiting" if waiting
                  else "Review names")
+    st.page_link(sources)
     st.page_link(check)
 
 nav.run()

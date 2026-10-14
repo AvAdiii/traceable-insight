@@ -97,29 +97,30 @@ def attendance_strip(facts: list[dict]) -> None:
             – not recorded. Select a mark to see its sheet.</div>""")
 
 
+TESTS = [("50m sprint", "sprint_50m_s", "s", True),
+         ("Standing broad jump", "broad_jump_cm", "cm", False),
+         ("600m run", "run_600m_s", "s", True)]
+
+
 def fitness_table(facts: list[dict]) -> None:
-    rounds = {}
-    for f in facts:
-        if f["type"] == "assessment":
-            rounds[f["summary"].split()[0].lower()] = f
+    rounds = {f["value"]["round"]: f for f in facts if f["type"] == "assessment"}
     if not rounds:
         st.html('<div class="card muted">No fitness assessments on record.</div>')
         return
 
-    def vals(f):
-        # summary: "Baseline test: 50m 9.1s, jump 160cm, 600m 170s"
-        parts = f["summary"].split(": ", 1)[1].split(", ")
-        return [p.split(" ", 1)[1] for p in parts]
+    def cell(rnd, key, unit):
+        f = rounds.get(rnd)
+        if f is None or f["value"].get("missing"):
+            return None, "not tested" if f is not None else "–"
+        v = f["value"][key]
+        return v, f"{v:g}{unit}"
 
-    base = vals(rounds["baseline"]) if "baseline" in rounds else ["–"] * 3
-    mid = vals(rounds["midline"]) if "midline" in rounds else ["not done"] * 3
     rows = []
-    for i, (label, lower_better) in enumerate([("50m sprint", True), ("Standing broad jump",
-                                                False), ("600m run", True)]):
-        change, cls = "", ""
-        try:
-            b = float(base[i].rstrip("scm"))
-            m = float(mid[i].rstrip("scm"))
+    for label, key, unit, lower_better in TESTS:
+        b, bt = cell("baseline", key, unit)
+        m, mt = cell("midline", key, unit)
+        change, cls = "–", ""
+        if b is not None and m is not None:
             pct = 100 * (m - b) / b
             worse = pct > 0 if lower_better else pct < 0
             word = ("slower" if lower_better else "shorter") if worse else \
@@ -127,9 +128,7 @@ def fitness_table(facts: list[dict]) -> None:
             change = f"{abs(pct):.0f}% {word}" if abs(pct) >= 0.5 else "no change"
             # Only sprint and 600m feed the fitness rule, so only they get the warning tone.
             cls = "worse" if worse and lower_better and abs(pct) > 8 else ""
-        except ValueError:
-            change = "–"
-        rows.append(f"<tr><td>{label}</td><td>{ui.esc(base[i])}</td><td>{ui.esc(mid[i])}</td>"
+        rows.append(f"<tr><td>{label}</td><td>{ui.esc(bt)}</td><td>{ui.esc(mt)}</td>"
                     f'<td class="{cls}">{ui.esc(change)}</td></tr>')
     st.html(f"""<div class="card"><table class="fit"><thead><tr><th>Test</th><th>Baseline</th>
         <th>Midline</th><th>Change</th></tr></thead><tbody>{''.join(rows)}</tbody></table>

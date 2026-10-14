@@ -42,9 +42,19 @@ def compute(school: str, db_path=None, data_dir=None) -> dict:
     wrong_states = [{"child_id": cid, "expected": s, "got": states.get(cid)}
                     for cid, s in expected.items() if states.get(cid) != s]
 
-    facts = conn.execute("SELECT f.quote, l.text FROM facts f JOIN source_lines l "
-                         "USING (line_id)").fetchall()
-    resolving = sum(q in t for q, t in facts)
+    # A citation resolves when the stored (pseudonymised) quote sits in the stored line AND,
+    # when the private copy is here, the original quote sits in the original line.
+    from ti.store import private
+    meta = {k: json.loads(v) for k, v in conn.execute("SELECT key, value FROM run_meta")}
+    orig = private.load(meta.get("private_copy"))
+    facts = conn.execute("SELECT f.fact_id, f.line_id, f.quote, l.text FROM facts f "
+                         "JOIN source_lines l USING (line_id)").fetchall()
+    resolving = 0
+    for fid, lid, q, t in facts:
+        ok = q in t
+        if orig["lines"]:
+            ok = ok and orig["facts"][fid]["quote"] in orig["lines"][lid]
+        resolving += ok
 
     res = {
         "link_accuracy": round(correct / len(truth["mentions"]), 3),

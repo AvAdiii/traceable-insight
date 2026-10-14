@@ -36,7 +36,7 @@ def run(page: str, **state) -> AppTest:
     return at.run()
 
 
-@pytest.mark.parametrize("page", ["school.py", "review.py", "check.py"])
+@pytest.mark.parametrize("page", ["school.py", "review.py", "check.py", "sources.py"])
 def test_page_renders_without_error(app_env, page):
     at = run(page)
     assert not at.exception, at.exception
@@ -68,3 +68,11 @@ def test_review_link_then_undo(app_env):
     assert not at.exception
     at.button(key=f"undo-{mid}").click().run()
     assert not at.exception
+
+
+def test_every_child_detail_renders(app_env):
+    """Each state, including gap children with a blank midline row, renders cleanly."""
+    at = run("school.py")
+    for key in [b.key for b in at.button if b.key and b.key.startswith("btn-")]:
+        at.button(key=key).click().run()
+        assert not at.exception, (key, at.exception)

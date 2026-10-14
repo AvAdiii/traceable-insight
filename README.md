@@ -21,7 +21,7 @@ scores or rankings of children, the data is synthetic, and there are no new form
 ```bash
 uv sync
 ollama serve &                 # local model; nothing leaves the machine
-ollama pull qwen3:4b           # or set TI_OLLAMA_MODEL
+ollama pull qwen2.5:7b
 uv run python run_pipeline.py --school school_a      # ingest → extract → link → state + check
 uv run streamlit run app/coordinator.py              # coordinator view on localhost:8501
 ```
@@ -35,21 +35,25 @@ uv run uvicorn ti.api:app                                    # thin JSON API (A7
 uv run pytest                                                # tests (ollama-marked test skips if down)
 ```
 
-## Current baseline (School A, seed 42, qwen3:4b)
+## Current baseline (School A, seed 42, qwen2.5:7b)
+
+Inputs match the plan's data quantum: 25 children + 1 coach + 1 PE teacher, 300 attendance
+rows, 12 coach forms, 217 WhatsApp messages, 50 assessment records, 30 guideline chunks
+(about 636 source records). 17% of name mentions are variants.
 
 | Target | Result |
 |---|---|
-| Name mentions linked to the right child (≥ 85%) | 99.7% of 320 (99.1% on an earlier cold run) |
+| Name mentions linked to the right child (≥ 85%) | 99.6% of 477 |
 | Planted conflicts found (≥ 3 of 4) | 4 of 4 |
 | Planted gaps found (≥ 3 of 4) | 4 of 4 |
-| Cited facts that open their source line (100%) | 100% of 457 |
+| Cited facts that open their source line (100%) | 100% of 461 |
 | Children in their planted state | 25 of 25 |
 
-A cold run takes about 2.5 minutes on an RTX 4050; cached re-runs take under a second. Ollama
-on a GPU is not perfectly deterministic even at temperature 0, so link accuracy moves by a few
-mentions between cold runs. Model answers are cached in `var/llm_cache` so the demo is stable.
-The misses are the model failing to pull a name out of a Hinglish message. A bare "ravi" goes
-to the review queue on purpose, because two children share the name.
+A cold run takes about 6 minutes on an RTX 4050 (6 GB); cached re-runs take a second. The two
+missed mentions are the model skipping a name in a message. A bare "ravi" goes to the review
+queue on purpose, because two children share the name. Ollama on a GPU is not perfectly
+deterministic even at temperature 0, so model answers are cached in `var/llm_cache` to keep the
+demo stable.
 
 ![Coordinator view](docs/screenshot.png)
 
@@ -77,7 +81,8 @@ A8 view ──── Streamlit: children by state, cited facts, source viewer, r
 | `src/ti/store/` | A5 schema and thresholds |
 | `src/ti/state/` | A6 state rules |
 | `src/ti/api/`, `src/ti/queries.py` | A7 API and shared read layer |
-| `app/` | A8 coordinator view |
+| `app/` | A8 coordinator view (children, review names, source files, ground-truth check) |
+| `docs/schemas.md` | #1 file and store schemas |
 | `run_pipeline.py`, `src/ti/score.py` | #14 one-command run, #15 scoring |
 
 ## Privacy
@@ -85,6 +90,9 @@ A8 view ──── Streamlit: children by state, cited facts, source viewer, r
 - Synthetic by design: fictional school, randomly combined names, phone numbers from a fake
   reserved range.
 - Scrubbed at ingest: phone numbers, links and media never reach the store.
+- Pseudonymised store: once a name is linked, the stored text carries the roster id
+  (`[A03] ran well`). The original line stays in `data/private/` (git-ignored) so every
+  citation can still open it.
 - Local only: extraction runs on an open-weight model through Ollama. The Streamlit server binds
   to localhost.
 - Minimal display: first name, class, state and cited facts.

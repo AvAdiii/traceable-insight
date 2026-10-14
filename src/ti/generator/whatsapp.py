@@ -177,6 +177,17 @@ def plan_messages(roster, profiles, rng: random.Random, concern_left: dict) -> l
             d.facts.append((c.child_id, "concern"))
             drafts.append(d)
 
+    # Demo step 5: the same child written two different ways, both must resolve to one child.
+    rk = next(c for c in roster if c.full == "Ravi Kumar")
+    rk_present = [d for d, v in profiles[rk.child_id].present.items() if v]
+    for surface, kind in [("Ravi K", "praise"), ("Ravikumar", "participation")]:
+        day = rk_present[len(drafts) % len(rk_present)]
+        d = Draft(_ts(day, rng, 8, 21), COACH,
+                  meaning=rng.choice(MEANINGS[kind]).format(n=surface))
+        d.mentions.append((surface, rk.child_id))
+        d.facts.append((rk.child_id, kind))
+        drafts.append(d)
+
     # Bare "ravi": two children share the name, so these must go to the review queue.
     for day, sender, meaning in [
         (days[3], COORDINATOR, "ravi did not submit the consent form yet, please follow up."),

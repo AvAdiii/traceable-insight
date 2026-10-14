@@ -63,3 +63,7 @@ def overrides(conn) -> dict[tuple[str, str, str], str]:
 def set_meta(conn, **kv) -> None:
     conn.executemany("INSERT OR REPLACE INTO run_meta VALUES (?, ?)",
                      [(k, json.dumps(v)) for k, v in kv.items()])
+
+
+def update_line_text(conn, line_id: int, text: str) -> None:
+    conn.execute("UPDATE source_lines SET text = ? WHERE line_id = ?", (text, line_id))

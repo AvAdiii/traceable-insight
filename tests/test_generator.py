@@ -41,33 +41,46 @@ def test_same_seed_same_files(tmp_path, fake_llm):
 
 def test_conflict_child_praised_on_a_day_marked_absent(school_dir):
     t = truth(school_dir)
-    by_id = {c["child_id"]: c for c in t["children"]}
     for conflict in t["planted_conflicts"]:
         day = dt.date.fromisoformat(conflict["date"])
         form_facts = [f for f in t["planted_facts"] if f["child_id"] == conflict["child_id"]
                       and f["file"] == "coach_forms.csv" and f["date"] == conflict["date"]]
-        assert form_facts, by_id[conflict["child_id"]]
+        assert form_facts
         week = sessions().index(day) // 2 + 1
-        sheet = f"attendance_wk{week}.csv"
-        rows = [m for m in t["mentions"]
-                if m["file"] == sheet and m["child_id"] == conflict["child_id"]]
-        assert rows
-        with open(school_dir / sheet) as f:
-            data = list(csv.DictReader(f))
-        row = data[int(rows[0]["ref"].split(":")[1]) - 1]
-        assert row[day.strftime("%d-%m-%Y")] == "A"
+        with open(school_dir / f"attendance_wk{week}.csv") as f:
+            rows = list(csv.DictReader(f))
+        refs = {m["ref"] for m in t["mentions"] if m["file"] == f"attendance_wk{week}.csv"
+                and m["child_id"] == conflict["child_id"]}
+        marks = [rows[int(r.split(":")[1]) - 1] for r in refs]
+        assert any(r["Date"] == day.strftime("%d-%m-%Y") and r["Status"] == "A" for r in marks)
 
 
-def test_gap_children_lack_weeks_or_midline(school_dir):
-    t = truth(school_dir)
+def test_volumes_match_the_plan(school_dir):
+    att = sum(len(list(csv.DictReader(open(p)))) for p in school_dir.glob("attendance_wk*.csv"))
+    assert att == 300
     with open(school_dir / "assessments.csv") as f:
-        midline = [r for r in csv.DictReader(f) if r["Round"] == "midline"]
-    mid_ids = {m["child_id"] for m in t["mentions"]
-               if m["file"] == "assessments.csv" and int(m["ref"][4:]) > 25}
-    assert len(midline) == 23
-    for gap in t["planted_gaps"]:
-        if gap["kind"] == "no_midline":
-            assert gap["child_id"] not in mid_ids
+        rows = list(csv.DictReader(f))
+    assert len(rows) == 50
+    assert sum(1 for r in rows if r["Round"] == "midline" and not r["600m run (s)"]) == 2
+    with open(school_dir / "coach_forms.csv") as f:
+        assert len(list(csv.DictReader(f))) == 12
+    staff = (school_dir / "staff.csv").read_text()
+    assert "coach" in staff and "pe_teacher" in staff
+
+
+def test_noise_is_logged(school_dir):
+    noise = truth(school_dir)["noise"]
+    assert noise["missing_weeks"] and noise["missing_assessments"]
+    assert len(noise["contradictory_reports"]) == 4
+    assert noise["name_variants"]
+    assert "late_entries" in noise
+
+
+def test_demo_variants_for_ravi_kumar_are_planted(school_dir):
+    t = truth(school_dir)
+    rk = next(c["child_id"] for c in t["children"] if c["first"] == "Ravi" and c["surname"] == "Kumar")
+    surfaces = {m["surface"] for m in t["mentions"] if m["child_id"] == rk}
+    assert {"Ravi K", "Ravikumar"} <= surfaces
 
 
 def test_chat_volume_pii_and_ambiguous_ravi(school_dir):

@@ -31,6 +31,11 @@ def structured_facts(line) -> list[dict]:
                 for d, mark in m["marks"].items() if mark in ("P", "A")]
     if line.kind == "assessment":
         vals = {k: m[k] for k in ("sprint_50m_s", "broad_jump_cm", "run_600m_s")}
+        if any(v is None for v in vals.values()):
+            return [{"name": m["name"], "type": "assessment", "date": m["date"],
+                     "quote": line.text,
+                     "summary": f"{m['round'].capitalize()} test: no results recorded",
+                     "value": {"round": m["round"], "missing": True}, "extractor": "rule"}]
         return [{"name": m["name"], "type": "assessment", "date": m["date"], "quote": line.text,
                  "summary": (f"{m['round'].capitalize()} test: 50m {vals['sprint_50m_s']:g}s, "
                              f"jump {vals['broad_jump_cm']:g}cm, 600m {vals['run_600m_s']:g}s"),

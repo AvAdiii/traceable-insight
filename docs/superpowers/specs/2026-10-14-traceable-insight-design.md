@@ -18,7 +18,7 @@ children. Synthetic data only.
 |---|---|
 | Repo | New local git repo `traceable-insight/`, pushed to team repo later |
 | UI | Streamlit (A8), styled per Apple HIG via `apple-design` skill |
-| LLM | Ollama required. Default model `qwen3:4b` (`think: false`, JSON format, temperature 0, seed 7). Configurable via `TI_OLLAMA_MODEL`. Pipeline exits with a clear error if Ollama is unreachable |
+| LLM | Ollama required. Model `qwen2.5:7b` (JSON format, temperature 0, seed 7), both for the Hinglish chat and for extraction. Pipeline exits with a clear error if Ollama is unreachable or the model is not pulled |
 | Python | 3.12 via uv |
 | Store | SQLite (`var/ti.db`). Chroma deferred |
 
@@ -51,13 +51,16 @@ var/                       gitignored (db, llm cache, score.json)
 - Latent profile per child: attendance rate, fitness trend, planted condition.
   Planted: 4 conflict, 4 gap, 5 needs attention, 12 on track.
 - Sessions: 12 (Tue/Fri across 6 weeks starting 2026-07-07).
-- `attendance_wk{1..6}.csv`: wide sheet (`Name`, two date columns, values `P`/`A`/blank).
-  The teacher writes some names as variants. Gap children have whole weeks missing.
+- `attendance_wk{1..6}.csv`: one row per child per session (`Date, Day, Student name, Status`),
+  12 × 25 = 300 rows. Status `P`/`A`/blank. Some names are variants. Gap children have blank
+  status for weeks 3–6.
 - `coach_forms.csv`: one row per session — `Timestamp, Coach, Session date, Group, Notes`.
   Notes mention 3–5 children (praise, concern, participation). Conflict children are mentioned as
   participating on a date where attendance says `A`.
-- `assessments.csv`: `round, date, name, sprint_50m_s, broad_jump_cm, run_600m_s`. Baseline
-  (all 25) and midline (gap children missing). Needs-attention children decline beyond threshold.
+- `assessments.csv`: `round, date, name, sprint_50m_s, broad_jump_cm, run_600m_s`, 2 × 25 = 50
+  rows. No-midline gap children keep a midline row with blank results. Needs-attention children
+  decline beyond threshold.
+- `staff.csv`: 1 coach, 1 PE teacher (fictional).
 - `whatsapp.txt`: Android export (`dd/mm/yy, h:mm am - Sender: text`), ~200 messages. Each
   message is first built from a template carrying its intended mentions (child_id + surface
   variant), then rewritten into Hinglish by Ollama. The rewrite must keep every surface variant
@@ -67,7 +70,9 @@ var/                       gitignored (db, llm cache, score.json)
 - `guideline.md`: header "SYNTHETIC — placeholder thresholds, to be validated with HRS",
   ~30 short sections. Thresholds also in `thresholds.yaml`.
 - `ground_truth.json`: roster states, every mention (file, ref, surface, child_id or
-  `"ambiguous"`), planted conflicts, planted gaps.
+  `"ambiguous"`, variant flag), planted conflicts, planted gaps, and a noise log (name variants,
+  missing weeks, missing assessments, late entries, contradictory reports).
+- "Ravi K" and "Ravikumar" are always planted for Ravi Kumar (demo step 5).
 
 ## A2 Ingest
 
@@ -96,6 +101,13 @@ Score = max(rapidfuzz `WRatio`, 100·Jaro-Winkler, metaphone-equal bonus).
 Group references (`class 6`, `boys`, `sab`, `all`) skipped. Coordinator can resolve queue items
 in the UI (stored in `link_overrides`).
 
+## Privacy (PDF O3)
+
+Phone numbers, media and links are scrubbed at ingest. Once a name is linked, the stored line
+text, quote and summary carry the roster id (`[A03]`) instead of the name. The original wording
+is written to `data/private/<school>/originals.json` (git-ignored) so the citation viewer can
+still open the exact source line.
+
 ## A5 Store (SQLite)
 
 Tables: `children`, `source_lines`, `mentions`, `facts`, `review_queue`, `link_overrides`,
@@ -123,7 +135,7 @@ citations resolving (= 100%). Writes `var/score.json`.
 
 ## A8 Coordinator view
 
-Pages: School (four state groups, child cards: first name, class, one-line reason), Child
+Pages: Source files (raw inputs, demo step 1), School (four state groups, child cards: first name, class, one-line reason), Child
 (state banner + cited facts; each fact expands to source line ±2 lines with quote highlighted),
 Review queue, Check (live score). Theme via `.streamlit/config.toml` plus scoped CSS; system
 font stack; semantic state colours valid in light and dark; state always shown with label and

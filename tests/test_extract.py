@@ -24,12 +24,24 @@ def test_find_span_never_invents_text():
     assert find_span("completely different words", NOTE) is None
 
 
-def test_attendance_row_gives_one_fact_per_recorded_session():
-    line = SourceLine("attendance_wk1.csv", "row:1", "Ravi K.,P,", "attendance",
-                      {"name": "Ravi K.", "marks": {"2026-07-07": "P", "2026-07-10": None}})
+def test_attendance_row_gives_a_fact_only_when_recorded():
+    line = SourceLine("attendance_wk1.csv", "row:1", "07-07-2026,Tue,Ravi K.,P", "attendance",
+                      {"name": "Ravi K.", "marks": {"2026-07-07": "P"}})
     facts, rej = extract_line(line, FakeClient())
     assert len(facts) == 1 and facts[0]["value"] == {"mark": "P"} and rej == 0
     assert facts[0]["quote"] == line.text
+    blank = SourceLine("attendance_wk1.csv", "row:2", "07-07-2026,Tue,Gopal Patel,",
+                       "attendance", {"name": "Gopal Patel", "marks": {"2026-07-07": None}})
+    assert extract_line(blank, FakeClient()) == ([], 0)
+
+
+def test_blank_assessment_row_is_a_cited_missing_result():
+    line = SourceLine("assessments.csv", "row:30", "midline,14-08-2026,Gopal Patel,,,",
+                      "assessment", {"round": "midline", "date": "2026-08-14",
+                                     "name": "Gopal Patel", "sprint_50m_s": None,
+                                     "broad_jump_cm": None, "run_600m_s": None})
+    facts, _ = extract_line(line, FakeClient())
+    assert facts[0]["value"] == {"round": "midline", "missing": True}
 
 
 def test_llm_path_drops_bad_items():

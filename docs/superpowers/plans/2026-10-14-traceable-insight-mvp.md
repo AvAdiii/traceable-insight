@@ -18,7 +18,9 @@ SQLite, FastAPI, Streamlit, pytest.
 - Spec: `docs/superpowers/specs/2026-10-14-traceable-insight-design.md`.
 - State precedence: Conflict to review > Not enough information > Needs attention > On track.
 - Planted counts: 4 conflict, 4 gap, 5 needs attention, 12 on track; 25 children.
-- Ollama required: model `qwen3:4b`, `think: false`, `format: json`, temperature 0, seed 7.
+- Ollama required: model `qwen2.5:7b`, `format: json`, temperature 0, seed 7.
+- Volumes as in the PDF: 300 attendance rows, 12 forms, ~200 messages, 50 assessments, ~30 guideline chunks.
+- Linked names are stored as roster ids; originals stay in git-ignored `data/private/`.
 - Every stored fact: `source_line_id` + `quote` that is an exact substring of the line text.
 - No scores or rankings of children in the UI. Synthetic data only. `var/` gitignored.
 - Targets: link accuracy ≥ 0.85, conflicts ≥ 3/4, gaps ≥ 3/4, citations resolve 100%.

@@ -26,17 +26,18 @@ def _date(s: str) -> str:
 
 
 def parse_attendance(path: Path) -> list[SourceLine]:
-    """Wide weekly sheet: Name, <date>, <date>. One line per child row."""
+    """Weekly sheet, one row per child per session: Date, Day, Student name, Status."""
     with open(path, newline="") as f:
         rows = list(csv.reader(f))
     header, body = rows[0], rows[1:]
-    dates = [_date(h) for h in header[1:]]
     out = []
     for i, row in enumerate(body, 1):
-        marks = {d: (row[j + 1].strip().upper() or None) for j, d in enumerate(dates)}
+        rec = dict(zip(header, row))
+        date = _date(rec["Date"])
+        mark = rec["Status"].strip().upper() or None
         out.append(SourceLine(path.name, f"row:{i}", ",".join(row), "attendance",
-                              {"name": row[0].strip(), "marks": marks,
-                               "header": ",".join(header)}))
+                              {"name": rec["Student name"].strip(), "date": date,
+                               "marks": {date: mark}, "header": ",".join(header)}))
     return out
 
 
@@ -63,7 +64,8 @@ def parse_assessments(path: Path) -> list[SourceLine]:
         out.append(SourceLine(path.name, f"row:{i}", ",".join(row), "assessment", {
             "round": rec["Round"], "date": _date(rec["Date"]), "name": rec["Student name"].strip(),
             "header": ",".join(header),
-            **{k: float(rec[col]) for col, k in metrics.items()}}))
+            **{k: (float(rec[col]) if rec[col].strip() else None)
+               for col, k in metrics.items()}}))
     return out
 
 

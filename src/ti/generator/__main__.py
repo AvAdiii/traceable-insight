@@ -8,7 +8,7 @@ import shutil
 from ti import config
 from ti.generator import guideline, structured, whatsapp
 from ti.generator.profiles import assign_profiles
-from ti.generator.roster import build_roster
+from ti.generator.roster import COACH, PE_TEACHER, build_roster
 from ti.generator.truth import TruthLog
 from ti.llm import OllamaClient
 
@@ -28,10 +28,17 @@ def generate(school: str, seed: int, client, data_dir=None) -> dict:
     roster = build_roster(rng("roster"))
     profiles = assign_profiles(roster, rng("profiles"))
     truth = TruthLog()
+    truth.canonical = {c.child_id: (c.first, c.full) for c in roster}
     with open(out / "roster.csv", "w", newline="") as f:
         wr = csv.DictWriter(f, fieldnames=list(roster[0].row()))
         wr.writeheader()
         wr.writerows(c.row() for c in roster)
+
+    with open(out / "staff.csv", "w", newline="") as f:
+        wr = csv.writer(f)
+        wr.writerow(["role", "name", "note"])
+        wr.writerow(["coach", COACH.removeprefix("Coach "), "fictional HRS coach"])
+        wr.writerow(["pe_teacher", PE_TEACHER.removesuffix(" (PE)"), "fictional PE teacher"])
 
     concern_left = {cid: p.concern_budget for cid, p in profiles.items() if p.concern_budget}
     structured.write_attendance(out, roster, profiles, truth, rng("attendance"))

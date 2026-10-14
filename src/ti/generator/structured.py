@@ -40,26 +40,30 @@ def date_str(d: dt.date) -> str:
 
 def write_attendance(out: Path, roster: list[Child], profiles: dict[str, Profile],
                      truth: TruthLog, rng: random.Random) -> None:
-    """One wide sheet per week, kept by the PE teacher: Name, Tue date, Fri date."""
+    """One sheet per week kept by the PE teacher: one row per child per session.
+
+    12 sessions x 25 children = 300 rows. A session that was not recorded for a child keeps
+    its row with a blank status (the planted missing weeks).
+    """
     dates = sessions()
     for w in range(N_WEEKS):
         week = dates[2 * w: 2 * w + 2]
         fname = f"attendance_wk{w + 1}.csv"
-        rows = []
-        for c in roster:
-            p = profiles[c.child_id]
-            marks = [p.present[d] for d in week]
-            if all(m is None for m in marks) and rng.random() < 0.5:
-                continue  # teacher left the child off this week's sheet entirely
-            name = names.surface(c.first, c.surname, rng, rate=0.2, formal=True)
-            cells = ["" if m is None else ("P" if m else "A") for m in marks]
-            rows.append((c.child_id, name, cells))
         with open(out / fname, "w", newline="") as f:
             wr = csv.writer(f)
-            wr.writerow(["Name"] + [date_str(d) for d in week])
-            for i, (cid, name, cells) in enumerate(rows, 1):
-                wr.writerow([name] + cells)
-                truth.mention(fname, f"row:{i}", name, cid)
+            wr.writerow(["Date", "Day", "Student name", "Status"])
+            i = 0
+            for day in week:
+                for c in roster:
+                    i += 1
+                    mark = profiles[c.child_id].present[day]
+                    name = names.surface(c.first, c.surname, rng, rate=0.2, formal=True)
+                    status = "" if mark is None else ("P" if mark else "A")
+                    wr.writerow([date_str(day), day.strftime("%a"), name, status])
+                    truth.mention(fname, f"row:{i}", name, c.child_id)
+                    if mark is None:
+                        truth.noise("missing_week", c.child_id, fname, f"row:{i}",
+                                    day.isoformat())
 
 
 def _form_mentions(day: dt.date, roster, profiles, rng, concern_left) -> list[tuple]:
@@ -98,6 +102,7 @@ def write_coach_forms(out: Path, roster, profiles, truth: TruthLog, rng: random.
             ts = dt.datetime.combine(day, dt.time(18, rng.randint(5, 55)))
             if late:
                 ts += dt.timedelta(days=rng.randint(1, 3), hours=rng.randint(0, 3))
+                truth.noise("late_entry", None, fname, f"row:{i}", day.isoformat())
             parts = []
             for c, kind in _form_mentions(day, roster, profiles, rng, concern_left):
                 name = names.surface(c.first, c.surname, rng, rate=0.2)
@@ -106,6 +111,8 @@ def write_coach_forms(out: Path, roster, profiles, truth: TruthLog, rng: random.
                 parts.append(tmpl.format(n=name))
                 truth.mention(fname, f"row:{i}", name, c.child_id)
                 truth.fact(c.child_id, kind, fname, f"row:{i}", day.isoformat())
+                if profiles[c.child_id].conflict_date == day:
+                    truth.noise("conflict", c.child_id, fname, f"row:{i}", day.isoformat())
             opener = rng.choice(OPENERS)
             notes = (opener + " " if opener else "") + ". ".join(parts) + "."
             wr.writerow([ts.strftime("%d/%m/%Y %H:%M:%S"), COACH.removeprefix("Coach "),
@@ -113,7 +120,8 @@ def write_coach_forms(out: Path, roster, profiles, truth: TruthLog, rng: random.
 
 
 def write_assessments(out: Path, roster, profiles, truth: TruthLog, rng: random.Random) -> None:
-    """Baseline (week 1) and midline (week 6) fitness tests, entered by the PE teacher."""
+    """Baseline (week 1) and midline (week 6) fitness tests: 2 rounds x 25 = 50 rows.
+    A child not tested at midline keeps a row with blank results."""
     fname = "assessments.csv"
     dates = sessions()
     rounds = [("baseline", dates[1]), ("midline", dates[-1])]
@@ -126,10 +134,13 @@ def write_assessments(out: Path, roster, profiles, truth: TruthLog, rng: random.
             for c in roster:
                 vals = profiles[c.child_id].baseline if rnd == "baseline" \
                     else profiles[c.child_id].midline
-                if vals is None:
-                    continue
                 i += 1
                 name = names.surface(c.first, c.surname, rng, rate=0.1, formal=True)
-                wr.writerow([rnd, date_str(day), name, vals["sprint_50m_s"],
-                             vals["broad_jump_cm"], vals["run_600m_s"]])
+                if vals is None:
+                    wr.writerow([rnd, date_str(day), name, "", "", ""])
+                    truth.noise("missing_assessment", c.child_id, fname, f"row:{i}",
+                                day.isoformat())
+                else:
+                    wr.writerow([rnd, date_str(day), name, vals["sprint_50m_s"],
+                                 vals["broad_jump_cm"], vals["run_600m_s"]])
                 truth.mention(fname, f"row:{i}", name, c.child_id)

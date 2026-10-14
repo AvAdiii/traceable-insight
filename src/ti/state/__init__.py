@@ -55,11 +55,14 @@ def evaluate(facts, th: dict) -> ChildState:
     for f in facts:
         if f["type"] == "attendance":
             attendance[f["date"]] = (json.loads(f["value"])["mark"], f["fact_id"])
-    rounds = {}
+    rounds, missing_rounds = {}, {}
     for f in facts:
         if f["type"] == "assessment":
             v = json.loads(f["value"])
-            rounds[v["round"]] = (v, f["fact_id"])
+            if v.get("missing"):
+                missing_rounds[v["round"]] = f["fact_id"]
+            else:
+                rounds[v["round"]] = (v, f["fact_id"])
     concerns = [f for f in facts if f["type"] in ("concern", "injury")]
 
     # 1. Conflict: coach form says the child took part on a day the sheet marks absent.
@@ -83,7 +86,8 @@ def evaluate(facts, th: dict) -> ChildState:
     if th.get("require_midline_assessment") and "midline" not in rounds:
         gaps.append("No midline fitness assessment on record.")
     if gaps:
-        ev = [fid for _, fid in attendance.values()] + [fid for _, fid in rounds.values()]
+        ev = [fid for _, fid in attendance.values()] + [fid for _, fid in rounds.values()] \
+            + list(missing_rounds.values())
         return ChildState(GAP, gaps, ev, [RULE_SECTIONS[GAP]])
 
     # 3. Needs attention.
@@ -114,9 +118,11 @@ def evaluate(facts, th: dict) -> ChildState:
 
     # 4. On track.
     msg = [f"Attended {present} of {recorded} recorded sessions."]
+    ev = [fid for _, fid in attendance.values()]
     if "midline" in rounds:
         msg.append("Fitness steady or improving since baseline.")
-    return ChildState(ON_TRACK, msg, [])
+        ev += [fid for _, fid in rounds.values()]
+    return ChildState(ON_TRACK, msg, ev)
 
 
 def assign_states(conn, th: dict) -> dict[str, ChildState]:

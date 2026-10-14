@@ -19,7 +19,8 @@ def test_cache_hit_skips_http(tmp_path, monkeypatch):
     assert client.generate_json("hi") == {"ok": 1}
     assert client.generate_json("hi") == {"ok": 1}
     assert len(sent) == 1
-    assert sent[0]["think"] is False and sent[0]["format"] == "json"
+    assert sent[0]["format"] == "json" and sent[0]["model"] == "qwen2.5:7b"
+    assert "think" not in sent[0]  # qwen2.5 is not a thinking model
 
 
 def test_unreachable_server_raises(tmp_path):

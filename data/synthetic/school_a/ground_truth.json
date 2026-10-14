@@ -322,1921 +322,3340 @@
       "file": "attendance_wk1.csv",
       "ref": "row:1",
       "surface": "Tarun Reddy",
-      "child_id": "A01"
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:2",
       "surface": "Priya Menon",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:3",
       "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:4",
       "surface": "Omana Mishra",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:5",
       "surface": "Pooja Khan",
-      "child_id": "A05"
+      "child_id": "A05",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:6",
       "surface": "Suresh Joshi",
-      "child_id": "A06"
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:7",
       "surface": "Lakshmi Menon",
-      "child_id": "A07"
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:8",
       "surface": "Yusuf P.",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": true
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:9",
       "surface": "Tanvi Verma",
-      "child_id": "A09"
+      "child_id": "A09",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:10",
       "surface": "Swathi P",
-      "child_id": "A10"
+      "child_id": "A10",
+      "variant": true
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:11",
       "surface": "Ananya Khan",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:12",
       "surface": "Sahana Shaikh",
-      "child_id": "A12"
+      "child_id": "A12",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:13",
       "surface": "Ravishankar",
-      "child_id": "A13"
+      "child_id": "A13",
+      "variant": true
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:14",
       "surface": "Rohan Ali",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:15",
       "surface": "Karthik Pillai",
-      "child_id": "A15"
+      "child_id": "A15",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:16",
       "surface": "Ishita Nair",
-      "child_id": "A16"
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:17",
       "surface": "Gopal Patel",
-      "child_id": "A17"
+      "child_id": "A17",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:18",
       "surface": "Siddharth Khan",
-      "child_id": "A18"
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:19",
       "surface": "Vikram Yadav",
-      "child_id": "A19"
+      "child_id": "A19",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:20",
       "surface": "Manoj Shaikh",
-      "child_id": "A20"
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:21",
       "surface": "Ajay Joshi",
-      "child_id": "A21"
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:22",
       "surface": "Harish Khan",
-      "child_id": "A22"
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:23",
       "surface": "Jyothi Sharma",
-      "child_id": "A23"
+      "child_id": "A23",
+      "variant": false
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:24",
       "surface": "Barat Iyer",
-      "child_id": "A24"
+      "child_id": "A24",
+      "variant": true
     },
     {
       "file": "attendance_wk1.csv",
       "ref": "row:25",
       "surface": "Naveen Nair",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:26",
+      "surface": "Taruna Reddy",
+      "child_id": "A01",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:27",
+      "surface": "Priya Menon",
+      "child_id": "A02",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:28",
+      "surface": "Ravi Kumar",
+      "child_id": "A03",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:29",
+      "surface": "Omana Mishra",
+      "child_id": "A04",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:30",
+      "surface": "Pooja Khan",
+      "child_id": "A05",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:31",
+      "surface": "Suresh Joshi",
+      "child_id": "A06",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:32",
+      "surface": "Lakshmi Menon",
+      "child_id": "A07",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:33",
+      "surface": "Yusufa Patel",
+      "child_id": "A08",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:34",
+      "surface": "Tanvi Verma",
+      "child_id": "A09",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:35",
+      "surface": "Swathi Patel",
+      "child_id": "A10",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:36",
+      "surface": "Ananya Khan",
+      "child_id": "A11",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:37",
+      "surface": "Sahana Shaikh",
+      "child_id": "A12",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:38",
+      "surface": "Ravi Shankar",
+      "child_id": "A13",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:39",
+      "surface": "Rohan Ali",
+      "child_id": "A14",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:40",
+      "surface": "Karthik P",
+      "child_id": "A15",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:41",
+      "surface": "Ishita Nair",
+      "child_id": "A16",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:42",
+      "surface": "Gopal Patel",
+      "child_id": "A17",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:43",
+      "surface": "Siddharth Khan",
+      "child_id": "A18",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:44",
+      "surface": "Vikram Yadav",
+      "child_id": "A19",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:45",
+      "surface": "Manoj Shaikh",
+      "child_id": "A20",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:46",
+      "surface": "Ajay Joshi",
+      "child_id": "A21",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:47",
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:48",
+      "surface": "Jyothi Sharma",
+      "child_id": "A23",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:49",
+      "surface": "Bharat Iyer",
+      "child_id": "A24",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk1.csv",
+      "ref": "row:50",
+      "surface": "Naveen N",
+      "child_id": "A25",
+      "variant": true
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:1",
-      "surface": "Taruna Reddy",
-      "child_id": "A01"
+      "surface": "Tarun R.",
+      "child_id": "A01",
+      "variant": true
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:2",
       "surface": "Priya Menon",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:3",
       "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:4",
       "surface": "Omana Mishra",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:5",
-      "surface": "Pooja Khan",
-      "child_id": "A05"
+      "surface": "Pooja K",
+      "child_id": "A05",
+      "variant": true
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:6",
       "surface": "Suresh Joshi",
-      "child_id": "A06"
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:7",
       "surface": "Lakshmi Menon",
-      "child_id": "A07"
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:8",
-      "surface": "Yusufa Patel",
-      "child_id": "A08"
+      "surface": "Yusuf Patel",
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:9",
       "surface": "Tanvi Verma",
-      "child_id": "A09"
+      "child_id": "A09",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:10",
-      "surface": "Swathi Patel",
-      "child_id": "A10"
+      "surface": "Swathi P.",
+      "child_id": "A10",
+      "variant": true
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:11",
       "surface": "Ananya Khan",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:12",
       "surface": "Sahana Shaikh",
-      "child_id": "A12"
+      "child_id": "A12",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:13",
       "surface": "Ravi Shankar",
-      "child_id": "A13"
+      "child_id": "A13",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:14",
       "surface": "Rohan Ali",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:15",
-      "surface": "Karthik P",
-      "child_id": "A15"
+      "surface": "Karthik Pillai",
+      "child_id": "A15",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:16",
       "surface": "Ishita Nair",
-      "child_id": "A16"
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:17",
       "surface": "Gopal Patel",
-      "child_id": "A17"
+      "child_id": "A17",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:18",
       "surface": "Siddharth Khan",
-      "child_id": "A18"
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:19",
-      "surface": "Vikram Yadav",
-      "child_id": "A19"
+      "surface": "Vikram Y",
+      "child_id": "A19",
+      "variant": true
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:20",
-      "surface": "Manoj Shaikh",
-      "child_id": "A20"
+      "surface": "Manoj S",
+      "child_id": "A20",
+      "variant": true
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:21",
       "surface": "Ajay Joshi",
-      "child_id": "A21"
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:22",
       "surface": "Harish Khan",
-      "child_id": "A22"
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:23",
-      "surface": "Jyothi Sharma",
-      "child_id": "A23"
+      "surface": "Jyothii Sharma",
+      "child_id": "A23",
+      "variant": true
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:24",
       "surface": "Bharat Iyer",
-      "child_id": "A24"
+      "child_id": "A24",
+      "variant": false
     },
     {
       "file": "attendance_wk2.csv",
       "ref": "row:25",
-      "surface": "Naveen N",
-      "child_id": "A25"
+      "surface": "Naveen Nair",
+      "child_id": "A25",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:26",
+      "surface": "Tarun Reddy",
+      "child_id": "A01",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:27",
+      "surface": "Priya Menon",
+      "child_id": "A02",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:28",
+      "surface": "Ravi Kumar",
+      "child_id": "A03",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:29",
+      "surface": "Omana Mishra",
+      "child_id": "A04",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:30",
+      "surface": "Pooja Khan",
+      "child_id": "A05",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:31",
+      "surface": "Suresh Joshi",
+      "child_id": "A06",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:32",
+      "surface": "Lakshmii Menon",
+      "child_id": "A07",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:33",
+      "surface": "Yusufa Patel",
+      "child_id": "A08",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:34",
+      "surface": "Tanvi Verma",
+      "child_id": "A09",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:35",
+      "surface": "Swathi Patel",
+      "child_id": "A10",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:36",
+      "surface": "Ananya Khan",
+      "child_id": "A11",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:37",
+      "surface": "Sahana Shaikh",
+      "child_id": "A12",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:38",
+      "surface": "Ravi Shankar",
+      "child_id": "A13",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:39",
+      "surface": "Rohan Ali",
+      "child_id": "A14",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:40",
+      "surface": "Kartik Pillai",
+      "child_id": "A15",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:41",
+      "surface": "Ishita Nair",
+      "child_id": "A16",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:42",
+      "surface": "Gopal Patel",
+      "child_id": "A17",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:43",
+      "surface": "Siddharth Khan",
+      "child_id": "A18",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:44",
+      "surface": "Vikram Yadav",
+      "child_id": "A19",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:45",
+      "surface": "Manoj Shaikh",
+      "child_id": "A20",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:46",
+      "surface": "Ajay Joshi",
+      "child_id": "A21",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:47",
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:48",
+      "surface": "Jyothi Sharma",
+      "child_id": "A23",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:49",
+      "surface": "Bharat Iyer",
+      "child_id": "A24",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk2.csv",
+      "ref": "row:50",
+      "surface": "Naveen N.",
+      "child_id": "A25",
+      "variant": true
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:1",
-      "surface": "Tarun R.",
-      "child_id": "A01"
+      "surface": "Tarun Reddy",
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:2",
       "surface": "Priya Menon",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:3",
       "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:4",
       "surface": "Omana Mishra",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:5",
-      "surface": "Suresh Joshi",
-      "child_id": "A06"
+      "surface": "Pooja Khan",
+      "child_id": "A05",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:6",
-      "surface": "Lakshmi Menon",
-      "child_id": "A07"
+      "surface": "Suresh Joshi",
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:7",
-      "surface": "Yusuf Patel",
-      "child_id": "A08"
+      "surface": "Lakshmi Menon",
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:8",
-      "surface": "Tanvi Verma",
-      "child_id": "A09"
+      "surface": "Yusuf Patel",
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:9",
-      "surface": "Swathi Patel",
-      "child_id": "A10"
+      "surface": "Tanvi Verma",
+      "child_id": "A09",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:10",
-      "surface": "Ananya K.",
-      "child_id": "A11"
+      "surface": "Swathi Patel",
+      "child_id": "A10",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:11",
-      "surface": "Sahana Shaikh",
-      "child_id": "A12"
+      "surface": "Ananya Khan",
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:12",
-      "surface": "Ravi Shankar",
-      "child_id": "A13"
+      "surface": "Sahana Shaikh",
+      "child_id": "A12",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:13",
-      "surface": "Rohan Ali",
-      "child_id": "A14"
+      "surface": "Ravi Shankar",
+      "child_id": "A13",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:14",
-      "surface": "Karthik Pillai",
-      "child_id": "A15"
+      "surface": "Rohan Ali",
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:15",
-      "surface": "Ishita Nair",
-      "child_id": "A16"
+      "surface": "Karthik Pillai",
+      "child_id": "A15",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:16",
-      "surface": "Gopal Patel",
-      "child_id": "A17"
+      "surface": "Ishita Nair",
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:17",
-      "surface": "Siddharth Khan",
-      "child_id": "A18"
+      "surface": "Gopal Patel",
+      "child_id": "A17",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:18",
-      "surface": "Vikram Y",
-      "child_id": "A19"
+      "surface": "Siddharth Khan",
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:19",
-      "surface": "Manoj S",
-      "child_id": "A20"
+      "surface": "Vikram Yadav",
+      "child_id": "A19",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:20",
-      "surface": "Ajay Joshi",
-      "child_id": "A21"
+      "surface": "Manoj Shaikh",
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:21",
-      "surface": "Harish Khan",
-      "child_id": "A22"
+      "surface": "Ajay Joshi",
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:22",
-      "surface": "Jyothii Sharma",
-      "child_id": "A23"
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:23",
-      "surface": "Bharat Iyer",
-      "child_id": "A24"
+      "surface": "Jyothi Sharma",
+      "child_id": "A23",
+      "variant": false
     },
     {
       "file": "attendance_wk3.csv",
       "ref": "row:24",
+      "surface": "Bharat Iyer",
+      "child_id": "A24",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:25",
       "surface": "Naveen Nair",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:26",
+      "surface": "Tarun Reddy",
+      "child_id": "A01",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:27",
+      "surface": "Priya Menon",
+      "child_id": "A02",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:28",
+      "surface": "Ravi Kumar",
+      "child_id": "A03",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:29",
+      "surface": "Omana Mishra",
+      "child_id": "A04",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:30",
+      "surface": "Pooja Khan",
+      "child_id": "A05",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:31",
+      "surface": "Sures Joshi",
+      "child_id": "A06",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:32",
+      "surface": "Lakshmi Menon",
+      "child_id": "A07",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:33",
+      "surface": "Yusuf Patel",
+      "child_id": "A08",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:34",
+      "surface": "Tanvii Verma",
+      "child_id": "A09",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:35",
+      "surface": "Swathi Patel",
+      "child_id": "A10",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:36",
+      "surface": "Ananya Khan",
+      "child_id": "A11",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:37",
+      "surface": "Sahana Shaikh",
+      "child_id": "A12",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:38",
+      "surface": "Ravi Shankar",
+      "child_id": "A13",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:39",
+      "surface": "Rohan Ali",
+      "child_id": "A14",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:40",
+      "surface": "Karthik Pillai",
+      "child_id": "A15",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:41",
+      "surface": "Isita Nair",
+      "child_id": "A16",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:42",
+      "surface": "Gopal Patel",
+      "child_id": "A17",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:43",
+      "surface": "Siddharth Khan",
+      "child_id": "A18",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:44",
+      "surface": "Veekram Yadav",
+      "child_id": "A19",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:45",
+      "surface": "Manoj Shaikh",
+      "child_id": "A20",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:46",
+      "surface": "Ajay Joshi",
+      "child_id": "A21",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:47",
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:48",
+      "surface": "Jyothi Sharma",
+      "child_id": "A23",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:49",
+      "surface": "Bharat I",
+      "child_id": "A24",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk3.csv",
+      "ref": "row:50",
+      "surface": "Naveen Nair",
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:1",
       "surface": "Tarun Reddy",
-      "child_id": "A01"
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:2",
       "surface": "Priya Menon",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:3",
       "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:4",
       "surface": "Omana Mishra",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:5",
       "surface": "Pooja Khan",
-      "child_id": "A05"
+      "child_id": "A05",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:6",
-      "surface": "Sures Joshi",
-      "child_id": "A06"
+      "surface": "Suresh Joshi",
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:7",
-      "surface": "Lakshmi M.",
-      "child_id": "A07"
+      "surface": "Lakshmi Menon",
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:8",
       "surface": "Yusuf Patel",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:9",
       "surface": "Tanvi Verma",
-      "child_id": "A09"
+      "child_id": "A09",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:10",
-      "surface": "Swathi Patel",
-      "child_id": "A10"
+      "surface": "Swathii Patel",
+      "child_id": "A10",
+      "variant": true
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:11",
       "surface": "Ananya Khan",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:12",
-      "surface": "Sahanaa Shaikh",
-      "child_id": "A12"
+      "surface": "Sahana Shaikh",
+      "child_id": "A12",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:13",
       "surface": "Ravi Shankar",
-      "child_id": "A13"
+      "child_id": "A13",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:14",
       "surface": "Rohan Ali",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:15",
       "surface": "Karthik Pillai",
-      "child_id": "A15"
+      "child_id": "A15",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:16",
       "surface": "Ishita Nair",
-      "child_id": "A16"
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:17",
-      "surface": "Gopal Patel",
-      "child_id": "A17"
+      "surface": "Gopal P",
+      "child_id": "A17",
+      "variant": true
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:18",
       "surface": "Siddharth Khan",
-      "child_id": "A18"
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:19",
       "surface": "Vikram Yadav",
-      "child_id": "A19"
+      "child_id": "A19",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:20",
       "surface": "Manoj Shaikh",
-      "child_id": "A20"
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:21",
       "surface": "Ajay Joshi",
-      "child_id": "A21"
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:22",
-      "surface": "Harish K.",
-      "child_id": "A22"
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:23",
       "surface": "Jyothi Sharma",
-      "child_id": "A23"
+      "child_id": "A23",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:24",
       "surface": "Bharat Iyer",
-      "child_id": "A24"
+      "child_id": "A24",
+      "variant": false
     },
     {
       "file": "attendance_wk4.csv",
       "ref": "row:25",
+      "surface": "Naveena Nair",
+      "child_id": "A25",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:26",
+      "surface": "Tarun Reddy",
+      "child_id": "A01",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:27",
+      "surface": "Priya Menon",
+      "child_id": "A02",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:28",
+      "surface": "Ravi Kumar",
+      "child_id": "A03",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:29",
+      "surface": "Omana Mishra",
+      "child_id": "A04",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:30",
+      "surface": "Pooja K.",
+      "child_id": "A05",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:31",
+      "surface": "Suresh Joshi",
+      "child_id": "A06",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:32",
+      "surface": "Lakshmi Menon",
+      "child_id": "A07",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:33",
+      "surface": "Yusuf Patel",
+      "child_id": "A08",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:34",
+      "surface": "Tanvi V",
+      "child_id": "A09",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:35",
+      "surface": "Swathi P",
+      "child_id": "A10",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:36",
+      "surface": "Ananyaa Khan",
+      "child_id": "A11",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:37",
+      "surface": "Sahana Shaikh",
+      "child_id": "A12",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:38",
+      "surface": "Ravishankar",
+      "child_id": "A13",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:39",
+      "surface": "Rohan Ali",
+      "child_id": "A14",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:40",
+      "surface": "Karthik Pillai",
+      "child_id": "A15",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:41",
+      "surface": "Ishita Nair",
+      "child_id": "A16",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:42",
+      "surface": "Gopal Patel",
+      "child_id": "A17",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:43",
+      "surface": "Siddharth Khan",
+      "child_id": "A18",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:44",
+      "surface": "Vikram Y.",
+      "child_id": "A19",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:45",
+      "surface": "Manoj Shaikh",
+      "child_id": "A20",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:46",
+      "surface": "Ajay Joshi",
+      "child_id": "A21",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:47",
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:48",
+      "surface": "Jyothi Sharma",
+      "child_id": "A23",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:49",
+      "surface": "Bharat Iyer",
+      "child_id": "A24",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk4.csv",
+      "ref": "row:50",
       "surface": "Naveen Nair",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:1",
-      "surface": "Taruna Reddy",
-      "child_id": "A01"
+      "surface": "Tarun Reddy",
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:2",
       "surface": "Priya Menon",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:3",
       "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:4",
-      "surface": "Omana Mishra",
-      "child_id": "A04"
+      "surface": "Omanaa Mishra",
+      "child_id": "A04",
+      "variant": true
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:5",
       "surface": "Pooja Khan",
-      "child_id": "A05"
+      "child_id": "A05",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:6",
       "surface": "Suresh Joshi",
-      "child_id": "A06"
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:7",
       "surface": "Lakshmi Menon",
-      "child_id": "A07"
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:8",
       "surface": "Yusuf Patel",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:9",
-      "surface": "Tanvi Verma",
-      "child_id": "A09"
+      "surface": "Tanvi V",
+      "child_id": "A09",
+      "variant": true
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:10",
       "surface": "Swathi Patel",
-      "child_id": "A10"
+      "child_id": "A10",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:11",
       "surface": "Ananya Khan",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:12",
-      "surface": "Ravi Shankar",
-      "child_id": "A13"
+      "surface": "Sahana Shaikh",
+      "child_id": "A12",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:13",
-      "surface": "Rohan Ali",
-      "child_id": "A14"
+      "surface": "Ravi Shankar",
+      "child_id": "A13",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:14",
-      "surface": "Karthik Pillai",
-      "child_id": "A15"
+      "surface": "Rohan Ali",
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:15",
-      "surface": "Ishita Nair",
-      "child_id": "A16"
+      "surface": "Karthik Pillai",
+      "child_id": "A15",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:16",
-      "surface": "Gopal Patel",
-      "child_id": "A17"
+      "surface": "Ishita Nair",
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:17",
-      "surface": "Siddharth Khan",
-      "child_id": "A18"
+      "surface": "Gopala Patel",
+      "child_id": "A17",
+      "variant": true
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:18",
-      "surface": "Vikram Yadav",
-      "child_id": "A19"
+      "surface": "Siddharth Khan",
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:19",
-      "surface": "Manoj Shaikh",
-      "child_id": "A20"
+      "surface": "Veekram Yadav",
+      "child_id": "A19",
+      "variant": true
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:20",
-      "surface": "Ajay Joshi",
-      "child_id": "A21"
+      "surface": "Manoj Shaikh",
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:21",
-      "surface": "Harish Khan",
-      "child_id": "A22"
+      "surface": "Ajay Joshi",
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:22",
-      "surface": "Jyothi Sharma",
-      "child_id": "A23"
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:23",
-      "surface": "Bharat Iyer",
-      "child_id": "A24"
+      "surface": "Jyothi Sharma",
+      "child_id": "A23",
+      "variant": false
     },
     {
       "file": "attendance_wk5.csv",
       "ref": "row:24",
+      "surface": "Bharat Iyer",
+      "child_id": "A24",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:25",
       "surface": "Naveen Nair",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:26",
+      "surface": "Tarun Reddy",
+      "child_id": "A01",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:27",
+      "surface": "Priya Menon",
+      "child_id": "A02",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:28",
+      "surface": "Ravi Kumar",
+      "child_id": "A03",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:29",
+      "surface": "Omana Mishra",
+      "child_id": "A04",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:30",
+      "surface": "Pooja Khan",
+      "child_id": "A05",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:31",
+      "surface": "Suresh Joshi",
+      "child_id": "A06",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:32",
+      "surface": "Lakshmi Menon",
+      "child_id": "A07",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:33",
+      "surface": "Yusuf Patel",
+      "child_id": "A08",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:34",
+      "surface": "Tanvi Verma",
+      "child_id": "A09",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:35",
+      "surface": "Swathi P.",
+      "child_id": "A10",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:36",
+      "surface": "Ananya Khan",
+      "child_id": "A11",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:37",
+      "surface": "Sahana S.",
+      "child_id": "A12",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:38",
+      "surface": "Ravi Shankar",
+      "child_id": "A13",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:39",
+      "surface": "Rohan Ali",
+      "child_id": "A14",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:40",
+      "surface": "Karthik Pillai",
+      "child_id": "A15",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:41",
+      "surface": "Ishita Nair",
+      "child_id": "A16",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:42",
+      "surface": "Gopal P.",
+      "child_id": "A17",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:43",
+      "surface": "Siddharth Khan",
+      "child_id": "A18",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:44",
+      "surface": "Vikram Yadav",
+      "child_id": "A19",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:45",
+      "surface": "Manoja Shaikh",
+      "child_id": "A20",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:46",
+      "surface": "Ajay J.",
+      "child_id": "A21",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:47",
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:48",
+      "surface": "Jyothi Sharma",
+      "child_id": "A23",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:49",
+      "surface": "Bharat I.",
+      "child_id": "A24",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk5.csv",
+      "ref": "row:50",
+      "surface": "Naveen Nair",
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:1",
-      "surface": "Tarun R",
-      "child_id": "A01"
+      "surface": "Tarun Reddy",
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:2",
       "surface": "Priya Menon",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:3",
-      "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "surface": "Ravi K.",
+      "child_id": "A03",
+      "variant": true
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:4",
       "surface": "Omana Mishra",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:5",
-      "surface": "Suresh Joshi",
-      "child_id": "A06"
+      "surface": "Pooja Khan",
+      "child_id": "A05",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:6",
-      "surface": "Lakshmi M.",
-      "child_id": "A07"
+      "surface": "Suresh Joshi",
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:7",
-      "surface": "Yusuf Patel",
-      "child_id": "A08"
+      "surface": "Lakshmi Menon",
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:8",
-      "surface": "Tanvi Verma",
-      "child_id": "A09"
+      "surface": "Yusuf Patel",
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:9",
-      "surface": "Swathi Patel",
-      "child_id": "A10"
+      "surface": "Tanvi V.",
+      "child_id": "A09",
+      "variant": true
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:10",
-      "surface": "Ananya Khan",
-      "child_id": "A11"
+      "surface": "Swathi Patel",
+      "child_id": "A10",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:11",
-      "surface": "Sahana Shaikh",
-      "child_id": "A12"
+      "surface": "Ananya Khan",
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:12",
-      "surface": "Ravi Shankar",
-      "child_id": "A13"
+      "surface": "Sahana Shaikh",
+      "child_id": "A12",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:13",
-      "surface": "Rohan Ali",
-      "child_id": "A14"
+      "surface": "Ravi S",
+      "child_id": "A13",
+      "variant": true
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:14",
-      "surface": "Karthik Pillai",
-      "child_id": "A15"
+      "surface": "Rohan Ali",
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:15",
-      "surface": "Ishitaa Nair",
-      "child_id": "A16"
+      "surface": "Karthik P.",
+      "child_id": "A15",
+      "variant": true
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:16",
-      "surface": "Gopal Patel",
-      "child_id": "A17"
+      "surface": "Ishita Nair",
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:17",
-      "surface": "Siddharth Khan",
-      "child_id": "A18"
+      "surface": "Gopal Patel",
+      "child_id": "A17",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:18",
-      "surface": "Vikram Yadav",
-      "child_id": "A19"
+      "surface": "Siddharth Khan",
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:19",
-      "surface": "Manoj Shaikh",
-      "child_id": "A20"
+      "surface": "Vikram Yadav",
+      "child_id": "A19",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:20",
-      "surface": "Ajay J",
-      "child_id": "A21"
+      "surface": "Manoj Shaikh",
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:21",
-      "surface": "Harish K",
-      "child_id": "A22"
+      "surface": "Ajay Joshi",
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:22",
-      "surface": "Jyothi Sharma",
-      "child_id": "A23"
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:23",
-      "surface": "Bharat Iyer",
-      "child_id": "A24"
+      "surface": "Jyothi Sharma",
+      "child_id": "A23",
+      "variant": false
     },
     {
       "file": "attendance_wk6.csv",
       "ref": "row:24",
+      "surface": "Bharat Iyer",
+      "child_id": "A24",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:25",
       "surface": "Naveen Nair",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:26",
+      "surface": "Tarun Reddy",
+      "child_id": "A01",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:27",
+      "surface": "Priya Menon",
+      "child_id": "A02",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:28",
+      "surface": "Ravikumar",
+      "child_id": "A03",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:29",
+      "surface": "Omana Mishra",
+      "child_id": "A04",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:30",
+      "surface": "Pooja Khan",
+      "child_id": "A05",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:31",
+      "surface": "Suresh Joshi",
+      "child_id": "A06",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:32",
+      "surface": "Lakshmi Menon",
+      "child_id": "A07",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:33",
+      "surface": "Yusuf Patel",
+      "child_id": "A08",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:34",
+      "surface": "Tanvi Verma",
+      "child_id": "A09",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:35",
+      "surface": "Swathi Patel",
+      "child_id": "A10",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:36",
+      "surface": "Ananya Khan",
+      "child_id": "A11",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:37",
+      "surface": "Sahana Shaikh",
+      "child_id": "A12",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:38",
+      "surface": "Ravi Shankar",
+      "child_id": "A13",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:39",
+      "surface": "Roan Ali",
+      "child_id": "A14",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:40",
+      "surface": "Karthik Pillai",
+      "child_id": "A15",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:41",
+      "surface": "Ishita Nair",
+      "child_id": "A16",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:42",
+      "surface": "Gopal Patel",
+      "child_id": "A17",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:43",
+      "surface": "Siddharth Khan",
+      "child_id": "A18",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:44",
+      "surface": "Vikram Yadav",
+      "child_id": "A19",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:45",
+      "surface": "Manoj Shaikh",
+      "child_id": "A20",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:46",
+      "surface": "Ajay Joshi",
+      "child_id": "A21",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:47",
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:48",
+      "surface": "Jyothi S",
+      "child_id": "A23",
+      "variant": true
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:49",
+      "surface": "Bharat Iyer",
+      "child_id": "A24",
+      "variant": false
+    },
+    {
+      "file": "attendance_wk6.csv",
+      "ref": "row:50",
+      "surface": "Naveen Nair",
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:1",
       "surface": "Suresh",
-      "child_id": "A06"
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:1",
       "surface": "Harish K",
-      "child_id": "A22"
+      "child_id": "A22",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:1",
       "surface": "Manoj",
-      "child_id": "A20"
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:1",
       "surface": "Priya",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:2",
       "surface": "yusuf",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:2",
       "surface": "Bharat",
-      "child_id": "A24"
+      "child_id": "A24",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:2",
       "surface": "Ajay J.",
-      "child_id": "A21"
+      "child_id": "A21",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:2",
       "surface": "Priya",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:2",
       "surface": "Ananya",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:3",
       "surface": "Naveen",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:3",
       "surface": "Isheeta",
-      "child_id": "A16"
+      "child_id": "A16",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:3",
       "surface": "Priya",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:3",
       "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:3",
       "surface": "Rohan A.",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:4",
       "surface": "Yusuf",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:4",
       "surface": "Pooja",
-      "child_id": "A05"
+      "child_id": "A05",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:4",
       "surface": "Ananya",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:5",
       "surface": "Naveen",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:5",
       "surface": "Karthi",
-      "child_id": "A15"
+      "child_id": "A15",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:5",
       "surface": "Ravi S.",
-      "child_id": "A13"
+      "child_id": "A13",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:6",
       "surface": "Omana",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:6",
       "surface": "Yusufa",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:6",
       "surface": "Naveena",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:7",
       "surface": "Tarun",
-      "child_id": "A01"
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:7",
       "surface": "yusuf",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": true
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:7",
       "surface": "Harish",
-      "child_id": "A22"
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:8",
       "surface": "Tarun",
-      "child_id": "A01"
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:8",
       "surface": "Omana",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:8",
       "surface": "Rohan",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:9",
       "surface": "Naveen",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:9",
       "surface": "Vikram",
-      "child_id": "A19"
+      "child_id": "A19",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:9",
       "surface": "Manoj",
-      "child_id": "A20"
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:9",
       "surface": "Omana",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:9",
       "surface": "Siddharth",
-      "child_id": "A18"
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:10",
       "surface": "Tarun",
-      "child_id": "A01"
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:10",
       "surface": "Swathi",
-      "child_id": "A10"
+      "child_id": "A10",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:10",
       "surface": "Gopal",
-      "child_id": "A17"
+      "child_id": "A17",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:11",
       "surface": "Yusuf",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:11",
       "surface": "Jyothi",
-      "child_id": "A23"
+      "child_id": "A23",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:11",
       "surface": "Rohan",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:11",
       "surface": "Ishita",
-      "child_id": "A16"
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:11",
       "surface": "Harish",
-      "child_id": "A22"
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:12",
       "surface": "Rohan",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:12",
       "surface": "Siddharth",
-      "child_id": "A18"
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "coach_forms.csv",
       "ref": "row:12",
       "surface": "Karthik",
-      "child_id": "A15"
+      "child_id": "A15",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:1",
       "surface": "Tarun Reddy",
-      "child_id": "A01"
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:2",
       "surface": "Priya M.",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": true
     },
     {
       "file": "assessments.csv",
       "ref": "row:3",
       "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:4",
       "surface": "Omana Mishra",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:5",
       "surface": "Pooja Khan",
-      "child_id": "A05"
+      "child_id": "A05",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:6",
       "surface": "Suresh Joshi",
-      "child_id": "A06"
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:7",
       "surface": "Lakshmi Menon",
-      "child_id": "A07"
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:8",
       "surface": "Yusuf Patel",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:9",
       "surface": "Tanvi Verma",
-      "child_id": "A09"
+      "child_id": "A09",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:10",
       "surface": "Swathi Patel",
-      "child_id": "A10"
+      "child_id": "A10",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:11",
       "surface": "Ananya Khan",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:12",
       "surface": "Sahana Shaikh",
-      "child_id": "A12"
+      "child_id": "A12",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:13",
       "surface": "Ravi Shankar",
-      "child_id": "A13"
+      "child_id": "A13",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:14",
       "surface": "Rohan Ali",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:15",
       "surface": "Karthik Pillai",
-      "child_id": "A15"
+      "child_id": "A15",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:16",
       "surface": "Ishita Nair",
-      "child_id": "A16"
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:17",
       "surface": "Gopal Patel",
-      "child_id": "A17"
+      "child_id": "A17",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:18",
       "surface": "Siddharth Khan",
-      "child_id": "A18"
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:19",
       "surface": "Vikram Yadav",
-      "child_id": "A19"
+      "child_id": "A19",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:20",
       "surface": "Manoj Shaikh",
-      "child_id": "A20"
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:21",
       "surface": "Ajaya Joshi",
-      "child_id": "A21"
+      "child_id": "A21",
+      "variant": true
     },
     {
       "file": "assessments.csv",
       "ref": "row:22",
       "surface": "Haris Khan",
-      "child_id": "A22"
+      "child_id": "A22",
+      "variant": true
     },
     {
       "file": "assessments.csv",
       "ref": "row:23",
       "surface": "Jyothi Sharma",
-      "child_id": "A23"
+      "child_id": "A23",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:24",
       "surface": "Bharat I",
-      "child_id": "A24"
+      "child_id": "A24",
+      "variant": true
     },
     {
       "file": "assessments.csv",
       "ref": "row:25",
       "surface": "Naveen Nair",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:26",
       "surface": "Tarun R",
-      "child_id": "A01"
+      "child_id": "A01",
+      "variant": true
     },
     {
       "file": "assessments.csv",
       "ref": "row:27",
       "surface": "Priya Menon",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:28",
       "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:29",
       "surface": "Omana Mishra",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:30",
       "surface": "Pooja Khan",
-      "child_id": "A05"
+      "child_id": "A05",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:31",
       "surface": "Suresh Joshi",
-      "child_id": "A06"
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:32",
       "surface": "Lakshmi Menon",
-      "child_id": "A07"
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:33",
       "surface": "Yusuf Patel",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:34",
       "surface": "Tanvi Verma",
-      "child_id": "A09"
+      "child_id": "A09",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:35",
       "surface": "Swathi Patel",
-      "child_id": "A10"
+      "child_id": "A10",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:36",
       "surface": "Ananya Khan",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:37",
       "surface": "Sahana Shaikh",
-      "child_id": "A12"
+      "child_id": "A12",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:38",
       "surface": "Ravi Shankar",
-      "child_id": "A13"
+      "child_id": "A13",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:39",
       "surface": "Rohan Ali",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:40",
       "surface": "Karthik Pillai",
-      "child_id": "A15"
+      "child_id": "A15",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:41",
       "surface": "Ishita Nair",
-      "child_id": "A16"
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:42",
-      "surface": "Vikram Yadav",
-      "child_id": "A19"
+      "surface": "Gopal Patel",
+      "child_id": "A17",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:43",
-      "surface": "Manoja Shaikh",
-      "child_id": "A20"
+      "surface": "Seeddharth Khan",
+      "child_id": "A18",
+      "variant": true
     },
     {
       "file": "assessments.csv",
       "ref": "row:44",
-      "surface": "Ajay Joshi",
-      "child_id": "A21"
+      "surface": "Vikram Yadav",
+      "child_id": "A19",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:45",
-      "surface": "Harish Khan",
-      "child_id": "A22"
+      "surface": "Manoj Shaikh",
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:46",
-      "surface": "Jyothi Sharma",
-      "child_id": "A23"
+      "surface": "Ajay Joshi",
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:47",
-      "surface": "Bharat Iyer",
-      "child_id": "A24"
+      "surface": "Harish Khan",
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "assessments.csv",
       "ref": "row:48",
+      "surface": "Jyothi Sharma",
+      "child_id": "A23",
+      "variant": false
+    },
+    {
+      "file": "assessments.csv",
+      "ref": "row:49",
+      "surface": "Bharat Iyer",
+      "child_id": "A24",
+      "variant": false
+    },
+    {
+      "file": "assessments.csv",
+      "ref": "row:50",
       "surface": "Naveen Nair",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:2",
       "surface": "Yusuf",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:3",
       "surface": "Lakshmi",
-      "child_id": "A07"
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:4",
       "surface": "Manoj",
-      "child_id": "A20"
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:5",
       "surface": "Bharat",
-      "child_id": "A24"
+      "child_id": "A24",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:6",
       "surface": "Naveen",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:13",
       "surface": "Omana",
-      "child_id": "A04"
+      "child_id": "A04",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:13",
       "surface": "Ajay",
-      "child_id": "A21"
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:14",
       "surface": "Suresh J.",
-      "child_id": "A06"
+      "child_id": "A06",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:15",
       "surface": "tanvi",
-      "child_id": "A09"
+      "child_id": "A09",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:16",
       "surface": "Swathi",
-      "child_id": "A10"
+      "child_id": "A10",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:17",
       "surface": "Karthik",
-      "child_id": "A15"
+      "child_id": "A15",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:18",
       "surface": "Rohan",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:26",
       "surface": "Siddarth",
-      "child_id": "A18"
+      "child_id": "A18",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:27",
       "surface": "Jyothi",
-      "child_id": "A23"
+      "child_id": "A23",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:28",
       "surface": "Suresh",
-      "child_id": "A06"
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:30",
       "surface": "Bharat",
-      "child_id": "A24"
+      "child_id": "A24",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:37",
       "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:38",
       "surface": "Harish K.",
-      "child_id": "A22"
+      "child_id": "A22",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:39",
-      "surface": "ravi",
-      "child_id": "ambiguous"
+      "surface": "Naveen",
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:40",
-      "surface": "Naveen",
-      "child_id": "A25"
+      "ref": "msg:41",
+      "surface": "Suresh",
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:42",
-      "surface": "Suresh",
-      "child_id": "A06"
+      "surface": "Tarun",
+      "child_id": "A01",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:43",
-      "surface": "Tarun",
-      "child_id": "A01"
+      "ref": "msg:44",
+      "surface": "Tanvi",
+      "child_id": "A09",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:45",
-      "surface": "Tanvi",
-      "child_id": "A09"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:46",
       "surface": "Ajay",
-      "child_id": "A21"
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:46",
+      "ref": "msg:45",
       "surface": "Rohan",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:47",
+      "surface": "Jyothi",
+      "child_id": "A23",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:48",
-      "surface": "Jyothi",
-      "child_id": "A23"
+      "surface": "ravi",
+      "child_id": "ambiguous",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:49",
       "surface": "Ananya",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:65",
       "surface": "Bharat",
-      "child_id": "A24"
+      "child_id": "A24",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:66",
       "surface": "Naveen N.",
-      "child_id": "A25"
+      "child_id": "A25",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:67",
       "surface": "Ajay",
-      "child_id": "A21"
+      "child_id": "A21",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:68",
       "surface": "Vikram",
-      "child_id": "A19"
+      "child_id": "A19",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:68",
       "surface": "Rohan",
-      "child_id": "A14"
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:70",
       "surface": "Tanvi",
-      "child_id": "A09"
+      "child_id": "A09",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:71",
       "surface": "Swathi",
-      "child_id": "A10"
+      "child_id": "A10",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:72",
       "surface": "Vikram",
-      "child_id": "A19"
+      "child_id": "A19",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:85",
       "surface": "Bharat",
-      "child_id": "A24"
+      "child_id": "A24",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:86",
+      "surface": "Ravi K",
+      "child_id": "A03",
+      "variant": true
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:87",
       "surface": "Swathi P",
-      "child_id": "A10"
+      "child_id": "A10",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:88",
+      "ref": "msg:89",
       "surface": "Ajaya",
-      "child_id": "A21"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:90",
-      "surface": "Rohan",
-      "child_id": "A14"
+      "child_id": "A21",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:91",
+      "surface": "Rohan",
+      "child_id": "A14",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:92",
       "surface": "Priya M",
-      "child_id": "A02"
+      "child_id": "A02",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:108",
       "surface": "Manoj S.",
-      "child_id": "A20"
+      "child_id": "A20",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:113",
-      "surface": "Priya M",
-      "child_id": "A02"
+      "surface": "Ravikumar",
+      "child_id": "A03",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:114",
-      "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "surface": "Priya M",
+      "child_id": "A02",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:115",
-      "surface": "Bharat",
-      "child_id": "A24"
+      "surface": "Ravi Kumar",
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:127",
-      "surface": "Swathi",
-      "child_id": "A10"
+      "ref": "msg:116",
+      "surface": "Bharat",
+      "child_id": "A24",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:128",
-      "surface": "Naveen",
-      "child_id": "A25"
+      "surface": "Swathi",
+      "child_id": "A10",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:130",
-      "surface": "Ananya",
-      "child_id": "A11"
+      "ref": "msg:129",
+      "surface": "Naveen",
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:131",
-      "surface": "Ravi Shankar",
-      "child_id": "A13"
+      "surface": "Ananya",
+      "child_id": "A11",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:132",
-      "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "surface": "Ravi Shankar",
+      "child_id": "A13",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:133",
+      "surface": "Ravi Kumar",
+      "child_id": "A03",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:135",
       "surface": "Yusuf P.",
-      "child_id": "A08"
+      "child_id": "A08",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:146",
+      "ref": "msg:148",
       "surface": "Naveen",
-      "child_id": "A25"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:147",
-      "surface": "Bharat",
-      "child_id": "A24"
+      "child_id": "A25",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:149",
-      "surface": "Suresh J",
-      "child_id": "A06"
+      "surface": "ravi",
+      "child_id": "ambiguous",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:151",
-      "surface": "Rohan",
-      "child_id": "A14"
+      "ref": "msg:150",
+      "surface": "Bharat",
+      "child_id": "A24",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:152",
-      "surface": "Ajay",
-      "child_id": "A21"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:153",
-      "surface": "Yusuf",
-      "child_id": "A08"
+      "surface": "Suresh J",
+      "child_id": "A06",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:154",
-      "surface": "ravi",
-      "child_id": "ambiguous"
+      "surface": "Rohan",
+      "child_id": "A14",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:165",
-      "surface": "Jyothi",
-      "child_id": "A23"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:166",
-      "surface": "Ravishankar",
-      "child_id": "A13"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:169",
-      "surface": "Lakshmi",
-      "child_id": "A07"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:170",
+      "ref": "msg:155",
       "surface": "Ajay",
-      "child_id": "A21"
+      "child_id": "A21",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:156",
+      "surface": "Yusuf",
+      "child_id": "A08",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:167",
+      "surface": "Jyothi",
+      "child_id": "A23",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:168",
+      "surface": "Ravishankar",
+      "child_id": "A13",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:171",
-      "surface": "Ravi Kumar",
-      "child_id": "A03"
+      "surface": "Lakshmi",
+      "child_id": "A07",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
-      "ref": "msg:182",
-      "surface": "Ravi Shankar",
-      "child_id": "A13"
+      "ref": "msg:172",
+      "surface": "Ajay",
+      "child_id": "A21",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:173",
+      "surface": "Ravi Kumar",
+      "child_id": "A03",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:184",
+      "surface": "Ravi Shankar",
+      "child_id": "A13",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:186",
       "surface": "Bharat I",
-      "child_id": "A24"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:187",
-      "surface": "Harish",
-      "child_id": "A22"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:188",
-      "surface": "Ravi K",
-      "child_id": "A03"
+      "child_id": "A24",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:189",
-      "surface": "Gopal",
-      "child_id": "A17"
+      "surface": "Harish",
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:190",
-      "surface": "Rohan",
-      "child_id": "A14"
+      "surface": "Ravi K",
+      "child_id": "A03",
+      "variant": true
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:191",
-      "surface": "Tanvi",
-      "child_id": "A09"
+      "surface": "Gopal",
+      "child_id": "A17",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:192",
+      "surface": "Rohan",
+      "child_id": "A14",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:193",
+      "surface": "Tanvi",
+      "child_id": "A09",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:194",
       "surface": "Suresh",
-      "child_id": "A06"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:204",
-      "surface": "Vikram",
-      "child_id": "A19"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:205",
-      "surface": "Yusuf",
-      "child_id": "A08"
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:206",
-      "surface": "Harish",
-      "child_id": "A22"
+      "surface": "Vikram",
+      "child_id": "A19",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:207",
+      "surface": "Yusuf",
+      "child_id": "A08",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:208",
-      "surface": "Manoj",
-      "child_id": "A20"
-    },
-    {
-      "file": "whatsapp.txt",
-      "ref": "msg:209",
-      "surface": "Siddharth",
-      "child_id": "A18"
+      "surface": "Harish",
+      "child_id": "A22",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:210",
-      "surface": "Suresh",
-      "child_id": "A06"
+      "surface": "Manoj",
+      "child_id": "A20",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:211",
-      "surface": "Ishita",
-      "child_id": "A16"
+      "surface": "Siddharth",
+      "child_id": "A18",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:212",
-      "surface": "Omanaa",
-      "child_id": "A04"
+      "surface": "Suresh",
+      "child_id": "A06",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:213",
       "surface": "Ishita",
-      "child_id": "A16"
+      "child_id": "A16",
+      "variant": false
     },
     {
       "file": "whatsapp.txt",
       "ref": "msg:214",
+      "surface": "Omanaa",
+      "child_id": "A04",
+      "variant": true
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:215",
+      "surface": "Ishita",
+      "child_id": "A16",
+      "variant": false
+    },
+    {
+      "file": "whatsapp.txt",
+      "ref": "msg:216",
       "surface": "Ananya",
-      "child_id": "A11"
+      "child_id": "A11",
+      "variant": false
     }
   ],
   "planted_facts": [
@@ -2685,49 +4104,49 @@
       "child_id": "A25",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:40",
+      "ref": "msg:39",
       "date": "2026-07-17"
     },
     {
       "child_id": "A06",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:42",
+      "ref": "msg:41",
       "date": "2026-07-17"
     },
     {
       "child_id": "A01",
       "kind": "participation",
       "file": "whatsapp.txt",
-      "ref": "msg:43",
+      "ref": "msg:42",
       "date": "2026-07-17"
     },
     {
       "child_id": "A09",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:45",
+      "ref": "msg:44",
       "date": "2026-07-17"
     },
     {
       "child_id": "A21",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:46",
+      "ref": "msg:45",
       "date": "2026-07-17"
     },
     {
       "child_id": "A14",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:46",
+      "ref": "msg:45",
       "date": "2026-07-17"
     },
     {
       "child_id": "A23",
       "kind": "concern",
       "file": "whatsapp.txt",
-      "ref": "msg:48",
+      "ref": "msg:47",
       "date": "2026-07-17"
     },
     {
@@ -2801,31 +4220,38 @@
       "date": "2026-07-24"
     },
     {
-      "child_id": "A10",
+      "child_id": "A03",
       "kind": "praise",
       "file": "whatsapp.txt",
       "ref": "msg:86",
       "date": "2026-07-24"
     },
     {
+      "child_id": "A10",
+      "kind": "praise",
+      "file": "whatsapp.txt",
+      "ref": "msg:87",
+      "date": "2026-07-24"
+    },
+    {
       "child_id": "A21",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:88",
+      "ref": "msg:89",
       "date": "2026-07-24"
     },
     {
       "child_id": "A14",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:90",
+      "ref": "msg:91",
       "date": "2026-07-24"
     },
     {
       "child_id": "A02",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:91",
+      "ref": "msg:92",
       "date": "2026-07-24"
     },
     {
@@ -2836,270 +4262,1052 @@
       "date": "2026-07-28"
     },
     {
-      "child_id": "A02",
-      "kind": "praise",
+      "child_id": "A03",
+      "kind": "participation",
       "file": "whatsapp.txt",
       "ref": "msg:113",
       "date": "2026-07-28"
     },
     {
-      "child_id": "A03",
+      "child_id": "A02",
       "kind": "praise",
       "file": "whatsapp.txt",
       "ref": "msg:114",
       "date": "2026-07-28"
     },
     {
+      "child_id": "A03",
+      "kind": "praise",
+      "file": "whatsapp.txt",
+      "ref": "msg:115",
+      "date": "2026-07-28"
+    },
+    {
       "child_id": "A24",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:115",
+      "ref": "msg:116",
       "date": "2026-07-28"
     },
     {
       "child_id": "A10",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:127",
+      "ref": "msg:128",
       "date": "2026-07-31"
     },
     {
       "child_id": "A25",
       "kind": "participation",
       "file": "whatsapp.txt",
-      "ref": "msg:128",
+      "ref": "msg:129",
       "date": "2026-07-31"
     },
     {
       "child_id": "A11",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:130",
+      "ref": "msg:131",
       "date": "2026-07-31"
     },
     {
       "child_id": "A13",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:131",
-      "date": "2026-07-31"
-    },
-    {
-      "child_id": "A03",
-      "kind": "absence",
-      "file": "whatsapp.txt",
       "ref": "msg:132",
       "date": "2026-07-31"
     },
     {
-      "child_id": "A08",
+      "child_id": "A03",
       "kind": "absence",
       "file": "whatsapp.txt",
       "ref": "msg:133",
       "date": "2026-07-31"
     },
     {
+      "child_id": "A08",
+      "kind": "absence",
+      "file": "whatsapp.txt",
+      "ref": "msg:135",
+      "date": "2026-07-31"
+    },
+    {
       "child_id": "A25",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:146",
+      "ref": "msg:148",
       "date": "2026-08-04"
     },
     {
       "child_id": "A24",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:147",
+      "ref": "msg:150",
       "date": "2026-08-04"
     },
     {
       "child_id": "A06",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:149",
+      "ref": "msg:152",
       "date": "2026-08-04"
     },
     {
       "child_id": "A14",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:151",
+      "ref": "msg:154",
       "date": "2026-08-04"
     },
     {
       "child_id": "A21",
       "kind": "participation",
       "file": "whatsapp.txt",
-      "ref": "msg:152",
+      "ref": "msg:155",
       "date": "2026-08-04"
     },
     {
       "child_id": "A08",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:153",
+      "ref": "msg:156",
       "date": "2026-08-04"
     },
     {
       "child_id": "A23",
       "kind": "concern",
       "file": "whatsapp.txt",
-      "ref": "msg:165",
+      "ref": "msg:167",
       "date": "2026-08-07"
     },
     {
       "child_id": "A13",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:166",
+      "ref": "msg:168",
       "date": "2026-08-07"
     },
     {
       "child_id": "A07",
       "kind": "participation",
       "file": "whatsapp.txt",
-      "ref": "msg:169",
+      "ref": "msg:171",
       "date": "2026-08-07"
     },
     {
       "child_id": "A21",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:170",
+      "ref": "msg:172",
       "date": "2026-08-07"
     },
     {
       "child_id": "A03",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:171",
+      "ref": "msg:173",
       "date": "2026-08-07"
     },
     {
       "child_id": "A13",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:182",
+      "ref": "msg:184",
       "date": "2026-08-11"
     },
     {
       "child_id": "A24",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:184",
+      "ref": "msg:186",
       "date": "2026-08-11"
     },
     {
       "child_id": "A22",
       "kind": "participation",
       "file": "whatsapp.txt",
-      "ref": "msg:187",
+      "ref": "msg:189",
       "date": "2026-08-11"
     },
     {
       "child_id": "A03",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:188",
+      "ref": "msg:190",
       "date": "2026-08-11"
     },
     {
       "child_id": "A17",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:189",
+      "ref": "msg:191",
       "date": "2026-08-11"
     },
     {
       "child_id": "A14",
       "kind": "participation",
       "file": "whatsapp.txt",
-      "ref": "msg:190",
+      "ref": "msg:192",
       "date": "2026-08-11"
     },
     {
       "child_id": "A09",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:191",
+      "ref": "msg:193",
       "date": "2026-08-11"
     },
     {
       "child_id": "A06",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:192",
+      "ref": "msg:194",
       "date": "2026-08-11"
     },
     {
       "child_id": "A19",
       "kind": "concern",
       "file": "whatsapp.txt",
-      "ref": "msg:204",
+      "ref": "msg:206",
       "date": "2026-08-14"
     },
     {
       "child_id": "A08",
       "kind": "participation",
       "file": "whatsapp.txt",
-      "ref": "msg:205",
+      "ref": "msg:207",
       "date": "2026-08-14"
     },
     {
       "child_id": "A22",
       "kind": "participation",
       "file": "whatsapp.txt",
-      "ref": "msg:206",
+      "ref": "msg:208",
       "date": "2026-08-14"
     },
     {
       "child_id": "A20",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:208",
+      "ref": "msg:210",
       "date": "2026-08-14"
     },
     {
       "child_id": "A18",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:209",
+      "ref": "msg:211",
       "date": "2026-08-14"
     },
     {
       "child_id": "A06",
       "kind": "concern",
       "file": "whatsapp.txt",
-      "ref": "msg:210",
+      "ref": "msg:212",
       "date": "2026-08-14"
     },
     {
       "child_id": "A16",
       "kind": "praise",
       "file": "whatsapp.txt",
-      "ref": "msg:211",
+      "ref": "msg:213",
       "date": "2026-08-14"
     },
     {
       "child_id": "A04",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:212",
+      "ref": "msg:214",
       "date": "2026-08-14"
     },
     {
       "child_id": "A16",
       "kind": "concern",
       "file": "whatsapp.txt",
-      "ref": "msg:213",
+      "ref": "msg:215",
       "date": "2026-08-14"
     },
     {
       "child_id": "A11",
       "kind": "absence",
       "file": "whatsapp.txt",
-      "ref": "msg:214",
+      "ref": "msg:216",
       "date": "2026-08-14"
     }
-  ]
+  ],
+  "noise": {
+    "name_variants": [
+      {
+        "file": "attendance_wk1.csv",
+        "ref": "row:8",
+        "surface": "Yusuf P.",
+        "child_id": "A08",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk1.csv",
+        "ref": "row:10",
+        "surface": "Swathi P",
+        "child_id": "A10",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk1.csv",
+        "ref": "row:13",
+        "surface": "Ravishankar",
+        "child_id": "A13",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk1.csv",
+        "ref": "row:24",
+        "surface": "Barat Iyer",
+        "child_id": "A24",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk1.csv",
+        "ref": "row:26",
+        "surface": "Taruna Reddy",
+        "child_id": "A01",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk1.csv",
+        "ref": "row:33",
+        "surface": "Yusufa Patel",
+        "child_id": "A08",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk1.csv",
+        "ref": "row:40",
+        "surface": "Karthik P",
+        "child_id": "A15",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk1.csv",
+        "ref": "row:50",
+        "surface": "Naveen N",
+        "child_id": "A25",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:1",
+        "surface": "Tarun R.",
+        "child_id": "A01",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:5",
+        "surface": "Pooja K",
+        "child_id": "A05",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:10",
+        "surface": "Swathi P.",
+        "child_id": "A10",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:19",
+        "surface": "Vikram Y",
+        "child_id": "A19",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:20",
+        "surface": "Manoj S",
+        "child_id": "A20",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:23",
+        "surface": "Jyothii Sharma",
+        "child_id": "A23",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:32",
+        "surface": "Lakshmii Menon",
+        "child_id": "A07",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:33",
+        "surface": "Yusufa Patel",
+        "child_id": "A08",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:40",
+        "surface": "Kartik Pillai",
+        "child_id": "A15",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk2.csv",
+        "ref": "row:50",
+        "surface": "Naveen N.",
+        "child_id": "A25",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk3.csv",
+        "ref": "row:31",
+        "surface": "Sures Joshi",
+        "child_id": "A06",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk3.csv",
+        "ref": "row:34",
+        "surface": "Tanvii Verma",
+        "child_id": "A09",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk3.csv",
+        "ref": "row:41",
+        "surface": "Isita Nair",
+        "child_id": "A16",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk3.csv",
+        "ref": "row:44",
+        "surface": "Veekram Yadav",
+        "child_id": "A19",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk3.csv",
+        "ref": "row:49",
+        "surface": "Bharat I",
+        "child_id": "A24",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk4.csv",
+        "ref": "row:10",
+        "surface": "Swathii Patel",
+        "child_id": "A10",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk4.csv",
+        "ref": "row:17",
+        "surface": "Gopal P",
+        "child_id": "A17",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk4.csv",
+        "ref": "row:25",
+        "surface": "Naveena Nair",
+        "child_id": "A25",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk4.csv",
+        "ref": "row:30",
+        "surface": "Pooja K.",
+        "child_id": "A05",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk4.csv",
+        "ref": "row:34",
+        "surface": "Tanvi V",
+        "child_id": "A09",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk4.csv",
+        "ref": "row:35",
+        "surface": "Swathi P",
+        "child_id": "A10",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk4.csv",
+        "ref": "row:36",
+        "surface": "Ananyaa Khan",
+        "child_id": "A11",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk4.csv",
+        "ref": "row:38",
+        "surface": "Ravishankar",
+        "child_id": "A13",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk4.csv",
+        "ref": "row:44",
+        "surface": "Vikram Y.",
+        "child_id": "A19",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:4",
+        "surface": "Omanaa Mishra",
+        "child_id": "A04",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:9",
+        "surface": "Tanvi V",
+        "child_id": "A09",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:17",
+        "surface": "Gopala Patel",
+        "child_id": "A17",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:19",
+        "surface": "Veekram Yadav",
+        "child_id": "A19",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:35",
+        "surface": "Swathi P.",
+        "child_id": "A10",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:37",
+        "surface": "Sahana S.",
+        "child_id": "A12",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:42",
+        "surface": "Gopal P.",
+        "child_id": "A17",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:45",
+        "surface": "Manoja Shaikh",
+        "child_id": "A20",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:46",
+        "surface": "Ajay J.",
+        "child_id": "A21",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk5.csv",
+        "ref": "row:49",
+        "surface": "Bharat I.",
+        "child_id": "A24",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk6.csv",
+        "ref": "row:3",
+        "surface": "Ravi K.",
+        "child_id": "A03",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk6.csv",
+        "ref": "row:9",
+        "surface": "Tanvi V.",
+        "child_id": "A09",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk6.csv",
+        "ref": "row:13",
+        "surface": "Ravi S",
+        "child_id": "A13",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk6.csv",
+        "ref": "row:15",
+        "surface": "Karthik P.",
+        "child_id": "A15",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk6.csv",
+        "ref": "row:28",
+        "surface": "Ravikumar",
+        "child_id": "A03",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk6.csv",
+        "ref": "row:39",
+        "surface": "Roan Ali",
+        "child_id": "A14",
+        "variant": true
+      },
+      {
+        "file": "attendance_wk6.csv",
+        "ref": "row:48",
+        "surface": "Jyothi S",
+        "child_id": "A23",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:1",
+        "surface": "Harish K",
+        "child_id": "A22",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:2",
+        "surface": "yusuf",
+        "child_id": "A08",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:2",
+        "surface": "Ajay J.",
+        "child_id": "A21",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:3",
+        "surface": "Isheeta",
+        "child_id": "A16",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:3",
+        "surface": "Rohan A.",
+        "child_id": "A14",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:5",
+        "surface": "Karthi",
+        "child_id": "A15",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:5",
+        "surface": "Ravi S.",
+        "child_id": "A13",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:6",
+        "surface": "Yusufa",
+        "child_id": "A08",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:6",
+        "surface": "Naveena",
+        "child_id": "A25",
+        "variant": true
+      },
+      {
+        "file": "coach_forms.csv",
+        "ref": "row:7",
+        "surface": "yusuf",
+        "child_id": "A08",
+        "variant": true
+      },
+      {
+        "file": "assessments.csv",
+        "ref": "row:2",
+        "surface": "Priya M.",
+        "child_id": "A02",
+        "variant": true
+      },
+      {
+        "file": "assessments.csv",
+        "ref": "row:21",
+        "surface": "Ajaya Joshi",
+        "child_id": "A21",
+        "variant": true
+      },
+      {
+        "file": "assessments.csv",
+        "ref": "row:22",
+        "surface": "Haris Khan",
+        "child_id": "A22",
+        "variant": true
+      },
+      {
+        "file": "assessments.csv",
+        "ref": "row:24",
+        "surface": "Bharat I",
+        "child_id": "A24",
+        "variant": true
+      },
+      {
+        "file": "assessments.csv",
+        "ref": "row:26",
+        "surface": "Tarun R",
+        "child_id": "A01",
+        "variant": true
+      },
+      {
+        "file": "assessments.csv",
+        "ref": "row:43",
+        "surface": "Seeddharth Khan",
+        "child_id": "A18",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:14",
+        "surface": "Suresh J.",
+        "child_id": "A06",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:15",
+        "surface": "tanvi",
+        "child_id": "A09",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:26",
+        "surface": "Siddarth",
+        "child_id": "A18",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:38",
+        "surface": "Harish K.",
+        "child_id": "A22",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:48",
+        "surface": "ravi",
+        "child_id": "ambiguous",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:66",
+        "surface": "Naveen N.",
+        "child_id": "A25",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:86",
+        "surface": "Ravi K",
+        "child_id": "A03",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:87",
+        "surface": "Swathi P",
+        "child_id": "A10",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:89",
+        "surface": "Ajaya",
+        "child_id": "A21",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:92",
+        "surface": "Priya M",
+        "child_id": "A02",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:108",
+        "surface": "Manoj S.",
+        "child_id": "A20",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:113",
+        "surface": "Ravikumar",
+        "child_id": "A03",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:114",
+        "surface": "Priya M",
+        "child_id": "A02",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:135",
+        "surface": "Yusuf P.",
+        "child_id": "A08",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:149",
+        "surface": "ravi",
+        "child_id": "ambiguous",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:152",
+        "surface": "Suresh J",
+        "child_id": "A06",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:168",
+        "surface": "Ravishankar",
+        "child_id": "A13",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:186",
+        "surface": "Bharat I",
+        "child_id": "A24",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:190",
+        "surface": "Ravi K",
+        "child_id": "A03",
+        "variant": true
+      },
+      {
+        "file": "whatsapp.txt",
+        "ref": "msg:214",
+        "surface": "Omanaa",
+        "child_id": "A04",
+        "variant": true
+      }
+    ],
+    "missing_weeks": [
+      {
+        "kind": "missing_week",
+        "child_id": "A05",
+        "file": "attendance_wk3.csv",
+        "ref": "row:5",
+        "date": "2026-07-21"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A12",
+        "file": "attendance_wk3.csv",
+        "ref": "row:12",
+        "date": "2026-07-21"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A05",
+        "file": "attendance_wk3.csv",
+        "ref": "row:30",
+        "date": "2026-07-24"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A12",
+        "file": "attendance_wk3.csv",
+        "ref": "row:37",
+        "date": "2026-07-24"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A05",
+        "file": "attendance_wk4.csv",
+        "ref": "row:5",
+        "date": "2026-07-28"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A12",
+        "file": "attendance_wk4.csv",
+        "ref": "row:12",
+        "date": "2026-07-28"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A05",
+        "file": "attendance_wk4.csv",
+        "ref": "row:30",
+        "date": "2026-07-31"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A12",
+        "file": "attendance_wk4.csv",
+        "ref": "row:37",
+        "date": "2026-07-31"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A05",
+        "file": "attendance_wk5.csv",
+        "ref": "row:5",
+        "date": "2026-08-04"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A12",
+        "file": "attendance_wk5.csv",
+        "ref": "row:12",
+        "date": "2026-08-04"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A05",
+        "file": "attendance_wk5.csv",
+        "ref": "row:30",
+        "date": "2026-08-07"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A12",
+        "file": "attendance_wk5.csv",
+        "ref": "row:37",
+        "date": "2026-08-07"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A05",
+        "file": "attendance_wk6.csv",
+        "ref": "row:5",
+        "date": "2026-08-11"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A12",
+        "file": "attendance_wk6.csv",
+        "ref": "row:12",
+        "date": "2026-08-11"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A05",
+        "file": "attendance_wk6.csv",
+        "ref": "row:30",
+        "date": "2026-08-14"
+      },
+      {
+        "kind": "missing_week",
+        "child_id": "A12",
+        "file": "attendance_wk6.csv",
+        "ref": "row:37",
+        "date": "2026-08-14"
+      }
+    ],
+    "missing_assessments": [
+      {
+        "kind": "missing_assessment",
+        "child_id": "A17",
+        "file": "assessments.csv",
+        "ref": "row:42",
+        "date": "2026-08-14"
+      },
+      {
+        "kind": "missing_assessment",
+        "child_id": "A18",
+        "file": "assessments.csv",
+        "ref": "row:43",
+        "date": "2026-08-14"
+      }
+    ],
+    "late_entries": [
+      {
+        "kind": "late_entry",
+        "child_id": null,
+        "file": "coach_forms.csv",
+        "ref": "row:10",
+        "date": "2026-08-07"
+      },
+      {
+        "kind": "late_entry",
+        "child_id": null,
+        "file": "coach_forms.csv",
+        "ref": "row:12",
+        "date": "2026-08-14"
+      }
+    ],
+    "contradictory_reports": [
+      {
+        "kind": "conflict",
+        "child_id": "A04",
+        "file": "coach_forms.csv",
+        "ref": "row:8",
+        "date": "2026-07-31"
+      },
+      {
+        "kind": "conflict",
+        "child_id": "A01",
+        "file": "coach_forms.csv",
+        "ref": "row:10",
+        "date": "2026-08-07"
+      },
+      {
+        "kind": "conflict",
+        "child_id": "A08",
+        "file": "coach_forms.csv",
+        "ref": "row:11",
+        "date": "2026-08-11"
+      },
+      {
+        "kind": "conflict",
+        "child_id": "A14",
+        "file": "coach_forms.csv",
+        "ref": "row:12",
+        "date": "2026-08-14"
+      }
+    ]
+  }
 }
