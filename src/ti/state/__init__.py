@@ -29,6 +29,7 @@ class ChildState:
     reasons: list[str]
     evidence: list[int] = field(default_factory=list)
     rules: list[str] = field(default_factory=list)
+    resolved: list[dict] = field(default_factory=list)   # coordinator decisions on conflicts
 
     @property
     def reason(self) -> str:
@@ -50,11 +51,20 @@ def _day(iso: str) -> str:
     return f"{int(d)} {'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split()[int(m) - 1]}"
 
 
-def evaluate(facts, th: dict) -> ChildState:
+def evaluate(facts, th: dict, resolutions: dict | None = None) -> ChildState:
+    """resolutions: date -> "coach" | "school" | "ask", the coordinator's answer to
+    "Which one is right?" for a conflict on that date."""
+    resolutions = resolutions or {}
     attendance = {}                      # date -> (mark, fact_id); later rows win
     for f in facts:
         if f["type"] == "attendance":
             attendance[f["date"]] = (json.loads(f["value"])["mark"], f["fact_id"])
+    resolved = []
+    for date, choice in resolutions.items():
+        if choice == "coach" and attendance.get(date, (None,))[0] == "A":
+            attendance[date] = ("P", attendance[date][1])   # coach form is right: count it
+        if choice in ("coach", "school"):
+            resolved.append({"date": date, "choice": choice})
     rounds, missing_rounds = {}, {}
     for f in facts:
         if f["type"] == "assessment":
@@ -69,11 +79,17 @@ def evaluate(facts, th: dict) -> ChildState:
     conflicts = []
     for f in facts:
         if f["line_kind"] == "coach_form" and f["type"] in ("praise", "participation") \
-                and attendance.get(f["date"], (None,))[0] == "A":
+                and attendance.get(f["date"], (None,))[0] == "A" \
+                and resolutions.get(f["date"]) != "school":
             conflicts.append((f, attendance[f["date"]][1]))
     if conflicts:
-        reasons = [f"Coach form says they took part on {_day(f['date'])}, but the attendance "
-                   f"sheet marks them absent that day." for f, _ in conflicts]
+        reasons = []
+        for f, _ in conflicts:
+            r = (f"Coach form says they took part on {_day(f['date'])}, but the attendance "
+                 f"sheet marks them absent that day.")
+            if resolutions.get(f["date"]) == "ask":
+                r += " Waiting for the coach to confirm."
+            reasons.append(r)
         ev = [i for f, a in conflicts for i in (f["fact_id"], a)]
         return ChildState(CONFLICT, reasons, ev, [RULE_SECTIONS[CONFLICT]])
 
@@ -88,7 +104,7 @@ def evaluate(facts, th: dict) -> ChildState:
     if gaps:
         ev = [fid for _, fid in attendance.values()] + [fid for _, fid in rounds.values()] \
             + list(missing_rounds.values())
-        return ChildState(GAP, gaps, ev, [RULE_SECTIONS[GAP]])
+        return ChildState(GAP, gaps, ev, [RULE_SECTIONS[GAP]], resolved)
 
     # 3. Needs attention.
     reasons, ev, rules = [], [], []
@@ -114,7 +130,7 @@ def evaluate(facts, th: dict) -> ChildState:
         ev += [f["fact_id"] for f in concerns]
         rules.append(RULE_SECTIONS["concerns"])
     if reasons:
-        return ChildState(ATTENTION, reasons, ev, rules)
+        return ChildState(ATTENTION, reasons, ev, rules, resolved)
 
     # 4. On track.
     msg = [f"Attended {present} of {recorded} recorded sessions."]
@@ -122,16 +138,19 @@ def evaluate(facts, th: dict) -> ChildState:
     if "midline" in rounds:
         msg.append("Fitness steady or improving since baseline.")
         ev += [fid for _, fid in rounds.values()]
-    return ChildState(ON_TRACK, msg, ev)
+    return ChildState(ON_TRACK, msg, ev, [], resolved)
 
 
 def assign_states(conn, th: dict) -> dict[str, ChildState]:
     titles = {json.loads(r["meta"])["title"]: r["line_id"] for r in conn.execute(
         "SELECT line_id, meta FROM source_lines WHERE kind = 'guideline'")}
     out = {}
+    res: dict[str, dict] = {}
+    for r in conn.execute("SELECT child_id, date, choice FROM resolutions"):
+        res.setdefault(r[0], {})[r[1]] = r[2]
     conn.execute("DELETE FROM child_states")
     for (cid,) in conn.execute("SELECT child_id FROM children ORDER BY child_id").fetchall():
-        st = evaluate(_facts(conn, cid), th)
+        st = evaluate(_facts(conn, cid), th, res.get(cid))
         out[cid] = st
         refs = [titles[t] for t in st.rules if t in titles]
         conn.execute("INSERT INTO child_states VALUES (?,?,?,?,?)",

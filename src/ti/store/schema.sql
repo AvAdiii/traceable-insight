@@ -71,5 +71,29 @@ CREATE TABLE IF NOT EXISTS link_overrides (
     PRIMARY KEY (source_file, ref, surface)
 );
 
+-- Coordinator answers to "Which one is right?" for a conflict. Kept across re-runs.
+CREATE TABLE IF NOT EXISTS resolutions (
+    child_id TEXT NOT NULL,
+    date TEXT NOT NULL,
+    choice TEXT NOT NULL CHECK (choice IN ('coach', 'school', 'ask')),
+    sources TEXT NOT NULL DEFAULT '[]',
+    decided_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime')),
+    PRIMARY KEY (child_id, date)
+);
+
+-- Actions the coordinator records for a child. Kept across re-runs.
+CREATE TABLE IF NOT EXISTS decisions (
+    decision_id INTEGER PRIMARY KEY,
+    child_id TEXT NOT NULL,
+    action TEXT NOT NULL,
+    coach TEXT NOT NULL,
+    start_date TEXT,
+    end_date TEXT,
+    notes TEXT NOT NULL DEFAULT '',
+    sources TEXT NOT NULL DEFAULT '[]',
+    state_at_decision TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
+);
+
 CREATE INDEX idx_facts_child ON facts(child_id);
 CREATE INDEX idx_mentions_line ON mentions(line_id);

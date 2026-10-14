@@ -72,3 +72,23 @@ def test_chat_praise_on_absent_day_is_not_a_conflict():
 def test_gap_beats_attention():
     facts = [att(d, "A") for d in DATES[:4]] + [assess("baseline"), assess("midline")]
     assert evaluate(facts, TH).state == GAP
+
+
+def test_school_is_right_clears_conflict_and_keeps_absence():
+    facts = healthy(absent=[DATES[3]]) + [note(DATES[3], "praise")]
+    assert evaluate(facts, TH).state == CONFLICT
+    st = evaluate(facts, TH, {DATES[3]: "school"})
+    assert st.state == ON_TRACK and "11 of 12" in st.reason
+    assert st.resolved == [{"date": DATES[3], "choice": "school"}]
+
+
+def test_coach_is_right_counts_the_session():
+    facts = healthy(absent=[DATES[3]]) + [note(DATES[3], "praise")]
+    st = evaluate(facts, TH, {DATES[3]: "coach"})
+    assert st.state == ON_TRACK and "12 of 12" in st.reason
+
+
+def test_ask_coach_keeps_conflict_open():
+    facts = healthy(absent=[DATES[3]]) + [note(DATES[3], "praise")]
+    st = evaluate(facts, TH, {DATES[3]: "ask"})
+    assert st.state == CONFLICT and "Waiting for the coach" in st.reason

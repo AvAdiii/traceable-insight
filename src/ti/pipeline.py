@@ -10,6 +10,8 @@ from ti.link import Matcher
 from ti.state import assign_states
 from ti.store import db, private, thresholds
 
+NOT_THIS_CHILD = "-"   # link_overrides value meaning "this mention is not that child"
+
 
 def run(school: str, client, db_path=None, data_dir=None, log=print,
         private_dir=None) -> dict:
@@ -27,6 +29,7 @@ def run(school: str, client, db_path=None, data_dir=None, log=print,
     matcher = Matcher(roster)
     overrides = db.overrides(conn)
     n_facts = rejected = 0
+    rejected_by_file: dict[str, int] = {}
     status_counts: dict[str, int] = {}
     originals: dict[int, str] = {}
     original_facts: dict[int, dict] = {}
@@ -35,6 +38,8 @@ def run(school: str, client, db_path=None, data_dir=None, log=print,
     for line in lines:
         facts, rej = extract_line(line, client)
         rejected += rej
+        if rej:
+            rejected_by_file[line.source_file] = rejected_by_file.get(line.source_file, 0) + rej
         if line.kind in ("whatsapp", "coach_form"):
             done += 1
             if done % 25 == 0 or done == len(free_text):
@@ -52,6 +57,8 @@ def run(school: str, client, db_path=None, data_dir=None, log=print,
                     continue
                 status, child = (("override", overrides[key]) if key in overrides
                                  else (r.status, r.child_id))
+                if child == NOT_THIS_CHILD:      # coordinator said "No" to a suggested link
+                    status, child = "unlinked", None
                 status_counts[status] = status_counts.get(status, 0) + 1
                 mid = db.insert_mention(conn, line_id, name, status, child, r.score, r.candidates)
                 mention_ids[name] = (mid, child)
@@ -82,7 +89,7 @@ def run(school: str, client, db_path=None, data_dir=None, log=print,
     for s in states.values():
         counts[s.state] = counts.get(s.state, 0) + 1
     summary = {"school": school, "source_lines": len(lines), "facts": n_facts,
-               "rejected_facts": rejected, "mentions": status_counts, "states": counts,
+               "rejected_facts": rejected, "rejected_by_file": rejected_by_file, "mentions": status_counts, "states": counts,
                "model": getattr(client, "model", "fake"),
                "private_copy": str(priv),
                "ran_at": dt.datetime.now().isoformat(timespec="seconds"),
