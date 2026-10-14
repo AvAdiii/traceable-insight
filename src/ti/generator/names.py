@@ -40,15 +40,18 @@ def misspell(first: str, rng: random.Random) -> str:
     return rng.choice(options) if options else first + "a"
 
 
-def variants(first: str, surname: str, rng: random.Random) -> list[str]:
+def variants(first: str, surname: str, rng: random.Random, formal: bool = False) -> list[str]:
     """Non-canonical ways a coach or teacher writes this child's name.
 
     The shared first name never gets a first-name-only variant: those are planted
-    separately as deliberately ambiguous mentions.
+    separately as deliberately ambiguous mentions. Formal sheets (attendance, assessments)
+    get initials and typing slips, never nicknames or lowercase first names.
     """
     out = [f"{first} {surname[0]}", f"{first} {surname[0]}."]
     if first == "Ravi":
         return out + [f"Ravi{surname.lower()}"]  # e.g. "Ravikumar"
+    if formal:
+        return out + [misspell(first, rng) + " " + surname]
     out += [first.lower(), misspell(first, rng)]
     if first in NICKNAMES:
         out.append(NICKNAMES[first])
@@ -59,7 +62,7 @@ def surface(first: str, surname: str, rng: random.Random, rate: float = 0.2,
             formal: bool = False) -> str:
     """How a child's name is written in one mention: usually plain, sometimes a variant."""
     if rng.random() < rate:
-        return rng.choice(variants(first, surname, rng))
+        return rng.choice(variants(first, surname, rng, formal))
     if formal or first == "Ravi":
         return f"{first} {surname}"
     return first

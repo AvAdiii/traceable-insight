@@ -25,3 +25,18 @@ def test_insert_lines_returns_ids(tmp_path):
 def test_thresholds_load(school_dir):
     t = thresholds.load(school_dir.parent / "programme" / "thresholds.yaml")
     assert t["synthetic"] is True and t["attendance_rate_min"] == 0.6
+
+
+def test_reinit_on_populated_store(tmp_path):
+    conn = db.connect(tmp_path / "t.db")
+    db.init(conn)
+    db.insert_children(conn, [{"child_id": "A01", "first": "X", "surname": "Y", "class": "6",
+                               "age": 11, "gender": "F"}])
+    ids = db.insert_lines(conn, [SourceLine("a.csv", "row:1", "X Y,P", "attendance", {})])
+    mid = db.insert_mention(conn, ids[("a.csv", "row:1")], "X Y", "linked", "A01", 100, [])
+    db.insert_fact(conn, {"line_id": ids[("a.csv", "row:1")], "mention_id": mid,
+                          "child_id": "A01", "type": "attendance", "date": "2026-07-07",
+                          "quote": "X Y,P", "summary": "Present", "extractor": "rule"})
+    conn.commit()
+    db.init(conn)
+    assert conn.execute("SELECT COUNT(*) FROM facts").fetchone()[0] == 0

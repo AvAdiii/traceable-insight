@@ -15,7 +15,10 @@ def connect(path: Path | str) -> sqlite3.Connection:
 
 
 def init(conn: sqlite3.Connection) -> None:
+    """(Re)create every table except link_overrides. Safe on a populated store."""
+    conn.execute("PRAGMA foreign_keys = OFF")
     conn.executescript(SCHEMA.read_text())
+    conn.execute("PRAGMA foreign_keys = ON")
 
 
 def insert_children(conn, roster: list[dict]) -> None:
