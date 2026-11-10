@@ -5,3 +5,11 @@ __pycache__/
 var/
 data/private/
 .DS_Store
+web/node_modules/
+web/dist/
+*.xlsx
+!data/demo/*.xlsx
+.env
+.impeccable/review/
+handoff/
+.impeccable/hook.cache.json

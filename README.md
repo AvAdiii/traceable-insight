@@ -1,107 +1,124 @@
-# Traceable Insight
+# Stride
+
+*Traceable Insight for Project Champion: every number traced to its spreadsheet cell.*
 
 **Problem 09B · Team HFMD Aur Samose · Hyderabad Runners Society, Project Champion**
 
-Turns scattered evidence about each child (WhatsApp chat, attendance sheets, coach session
-forms, fitness assessments, the programme guideline) into cited facts, and places each child in
-exactly one state:
+> The Project Champion programme manager needs to see, across every school and coach, which
+> children are strongest and which need a push on jump, throw, run and endurance, and to pick
+> athletes for sports meets, using only the assessment sheets PT trainers already fill, with every
+> number traceable to its spreadsheet cell. *(To validate with HRS at the next check-in.)*
 
-| State | Rule (synthetic thresholds, `data/synthetic/programme/thresholds.yaml`) |
+v2 replaces the mid-eval prototype (Streamlit, synthetic WhatsApp and attendance sources, four
+fixed child states) after feedback from Prof. Ramesh and the HRS representative.
+
+## What changed since mid-eval
+
+| Feedback | v2 answer |
 |---|---|
-| **Conflict to review** | The coach form says the child took part on a day the attendance sheet marks them absent |
-| **Not enough information** | Fewer than 6 of 12 sessions recorded, or no midline assessment |
-| **Needs attention** | Attendance below 60%, a sprint or 600m time more than 8% slower, or 2+ concerns |
-| **On track** | None of the above |
+| Real data is one Excel template, not WhatsApp/attendance | Parser for the HRS template (`Name of the School … Broard Jump … Relay Run Edurance Challenge`), cell-level citations (file › sheet › cell). WhatsApp generator and free-text LLM extraction removed. |
+| Attendance is not the metric; motor skills are | Percentile per test (jump, run, throw, endurance) within the same gender and age, programme-wide, plus a weighted overall score. Progress across rounds in raw units. |
+| Four exclusive states were wrong | Stackable flags: Top performer, Most improved, Needs a push, Declining, Missing test. Data problems live in a separate Inbox and never become a child's category. |
+| Wrong level of the organisation | Manager / supervisor / trainer roles; school and coach are first-class filters. |
+| Sports meets | Calendar, meets with races (discipline, gender, age band, places), AI shortlist with cited reasons and reserves, picks, to-dos, results → achievements, CSV team list. |
+| Deliverable | Installable PWA, phone first, same app on laptop. |
 
-Precedence runs top to bottom. The tool flags and cites; the coordinator decides. There are no
-scores or rankings of children, the data is synthetic, and there are no new forms for coaches.
-
-## Quick start
+## Quick start (local demo, synthetic data)
 
 ```bash
-uv sync
-ollama serve &                 # local model; nothing leaves the machine
-ollama pull qwen2.5:7b
-uv run python run_pipeline.py --school school_a      # ingest → extract → link → state + check
-uv run streamlit run app/coordinator.py              # coordinator view on localhost:8501
+./dev.sh                 # uv sync, npm install, seed demo, API :8000 + web :5173
+# open http://localhost:5173 — demo logins: manager@ / supervisor@ / trainer@champion.demo, password "champion"
 ```
 
-Optional:
+Pieces on their own:
 
 ```bash
-uv run python -m ti.generator --school school_a --seed 42   # regenerate the synthetic school
-uv run python -m ti.score --school school_a                 # ground-truth check only
-uv run uvicorn ti.api:app                                    # thin JSON API (A7)
-uv run pytest                                                # tests (ollama-marked test skips if down)
+uv run python -m ti.generator          # write data/demo/*.xlsx (+ ground_truth.json)
+uv run python -m ti.seed --fresh       # rebuild var/ti.db through the real pipeline
+uv run python -m ti.verify             # score linking and planted issues against ground truth
+uv run uvicorn ti.api:app --reload     # API (serves web/dist at / when built)
+cd web && npm run dev                  # PWA dev server with /api proxy
+uv run pytest                          # 17 tests
 ```
-
-## Current baseline (School A, seed 42, qwen2.5:7b)
-
-Inputs match the plan's data quantum: 25 children + 1 coach + 1 PE teacher, 300 attendance
-rows, 12 coach forms, 217 WhatsApp messages, 50 assessment records, 30 guideline chunks
-(about 636 source records). 17% of name mentions are variants.
-
-| Target | Result |
-|---|---|
-| Name mentions linked to the right child (≥ 85%) | 99.6% of 477 |
-| Planted conflicts found (≥ 3 of 4) | 4 of 4 |
-| Planted gaps found (≥ 3 of 4) | 4 of 4 |
-| Cited facts that open their source line (100%) | 100% of 461 |
-| Children in their planted state | 25 of 25 |
-
-A cold run takes about 6 minutes on an RTX 4050 (6 GB); cached re-runs take a second. The two
-missed mentions are the model skipping a name in a message. A bare "ravi" goes to the review
-queue on purpose, because two children share the name. Ollama on a GPU is not perfectly
-deterministic even at temperature 0, so model answers are cached in `var/llm_cache` to keep the
-demo stable.
-
-![Coordinator view](docs/screenshot.png)
 
 ## How it works
 
 ```
-A1 generator ─► data/synthetic/school_a/*  (+ ground_truth.json, read only by ti.score)
+Excel upload (any device) ─► uploads: file version, SHA-256, stored file, round + test date
+   ingest    find template sheets by header, keep every raw cell with its address;
+             prefer a "Revised" sheet and pair each row with its twin in the other sheet
+   clean     ok / repaired ("17kh" → 17, ".12.25", "5..84", number shown as a date) /
+             suspect (out of range, with a unit hint) / missing (blank, 0)
+   checks    repeated blocks, class block pasted into another class, placeholder values
+             (one value for most of a school), relay in levels not seconds, sheets disagreeing,
+             unusual for age (robust z within gender ± 1 year), DOB that does not fit the class
+   identity  initials- and order-aware names + parent + DOB; within a round never fuzzy-merged
+             (twins); unsure → "Who is …?" in the Inbox
+   score     percentile within gender × age (pool widens until ≥ 25 children), composite
+   flags     top / improved / push / declining / missing, each with evidence ids
                    │
-A2 ingest ── parse every source, scrub phone numbers / links / media
-A3 extract ─ rule facts from sheets; Ollama facts from chat + coach notes
-             every quote must be an exact substring of its source line, or it is dropped
-A4 link ──── rapidfuzz + jellyfish against the roster; unclear names → review queue
-A5 store ─── SQLite at var/<school>.db (git-ignored)
-A6 state ─── four rules, one state per child, with evidence fact ids + guideline section
-A7 API ───── FastAPI over ti.queries
-A8 view ──── Streamlit: children by state, cited facts, source viewer, review queue, check
+         ti.queries (one read layer) ─► FastAPI ─► React PWA
+                                                 └─ WebLLM worker for Ask (optional)
 ```
 
-| Path | Component |
+Persistent: users, schools ↔ coaches, rounds, uploads, records (raw rows), children registry,
+coordinator decisions, events / races / picks / results / to-dos, settings, audit log.
+Derived and rebuilt after every upload or decision: measurements, percentiles, flags, Inbox.
+
+On the real HRS workbook (3,073 rows, 8 schools, run locally, never committed) the pipeline runs in
+about 6 s and finds the repeated Shaikpet block (315 exact + 72 differing copies), the MRC
+Filmnagar Class I → III paste, six placeholder groups (ball 2.5 m, shuttle 16 s), relay recorded in
+levels/minutes at two schools and 111 dates of birth that do not fit the class. On the synthetic
+demo (1,450 children, 3 rounds) linking is exact: 0 split, 0 merged, 6 rows sent to review.
+
+## Tech choices (one line each)
+
+- **FastAPI + SQLAlchemy** = one Python codebase for pipeline and API; SQLite locally, Postgres (Supabase) hosted by changing `TI_DATABASE_URL`.
+- **openpyxl** = reads cell values *and* addresses, so every number cites `file › sheet › cell`.
+- **rapidfuzz + jellyfish** = typo, initial (`K.Umesh`) and sound-alike name matching.
+- **Rules for cleaning, checks, scores and flags** = the same files and decisions always give the same output; no model touches children's data.
+- **React + Vite + Tailwind PWA** = installable on phones, works on laptops, offline shell; Apple-HIG styling (system font, 44 px targets, light/dark).
+- **WebLLM (Qwen2.5-1.5B-Instruct q4, ~1 GB, JSON-schema constrained)** in a web worker = Ask runs on the device, free, offline after download. Lite (Qwen2.5-0.5B) for older phones, Best (Qwen3-1.7B). Fallback chain: browser model → laptop Ollama (`qwen2.5:3b`) → server rule parser.
+- **JWT roles** = manager sees all schools, supervisor their schools, trainer their school.
+- **Docker / Render + Supabase Postgres** = one container serves API and PWA (`Dockerfile`, `render.yaml`).
+
+## Design decisions
+
+- **Pipeline (ETL) + rebuildable state**: ingest → clean → check → link → score → flag; a new upload or decision simply re-runs `rebuild()`.
+- **Layered**: input, processing, store, one read layer (`ti.queries`), presentation. The PWA never sees raw files except through the receipt endpoint.
+- **Provenance store**: every measurement keeps its record id and cell; the Receipt view shows the row as typed with neighbours, the round, upload date and file fingerprint.
+- **Data problems ≠ children's problems**: suspect and disputed values are excluded from percentiles and shortlists until the coordinator decides; strong children held back by a check are listed, never dropped silently.
+- **Human in the loop with undo**: Inbox decisions are stored as resolutions, survive re-runs, and can be undone.
+- **AI where it is cheap and safe**: the model only maps a question to a validated query (`ti.ask.SCHEMA`); answers and shortlists are computed and cited. Retrieval is structured, not vector search.
+- **Privacy by design**: the language model never receives names, DOBs or results; the real workbook is git-ignored. Hosting puts children's data in the programme's database, so real data needs HRS consent first.
+
+## Meet selection
+
+Each race has a discipline whose weights say which tests predict it (editable in `ti.shortlist`):
+sprint = shuttle 70% + jump 30%, jumps = jump 80% + shuttle 20%, throws = ball 85% + jump 15%,
+middle distance = relay 75% + shuttle 25%, relay = shuttle 60% + relay 40%, all-round = equal.
+Age is counted on the meet date. A child's score is the weighted mean of their latest valid
+percentiles; reasons show each value with its cell.
+
+## Layout
+
+| Path | What |
 |---|---|
-| `src/ti/generator/` | A1 synthetic data generator (seeded) |
-| `src/ti/ingest/` | A2 parsers and PII scrub |
-| `src/ti/extract/` | A3 fact extraction and span verification |
-| `src/ti/link/` | A4 name matcher |
-| `src/ti/store/` | A5 schema and thresholds |
-| `src/ti/state/` | A6 state rules |
-| `src/ti/api/`, `src/ti/queries.py` | A7 API and shared read layer |
-| `app/` | A8 coordinator view (children, review names, source files, ground-truth check) |
-| `docs/schemas.md` | #1 file and store schemas |
-| `run_pipeline.py`, `src/ti/score.py` | #14 one-command run, #15 scoring |
+| `src/ti/template.py`, `ingest.py`, `clean.py` | HRS template mapping, workbook reader, cell cleaning |
+| `src/ti/identity.py` | Name linking across rounds |
+| `src/ti/pipeline.py` | Upload, checks, measurements, percentiles, flags, Inbox, decisions |
+| `src/ti/shortlist.py`, `ask.py` | Meet shortlists; Ask schema, rule parser, executor |
+| `src/ti/queries.py`, `api/` | Read layer and FastAPI routers (core, data, events, ask) |
+| `src/ti/generator/`, `seed.py`, `verify.py` | Synthetic data on the template, demo seed, ground-truth check |
+| `web/` | PWA: pages, components (Receipt, LineChart, Sheet…), WebLLM worker |
+| `docs/superpowers/specs/2026-11-10-champion-v2-design.md` | v2 spec |
 
-## Privacy
+## Honest limits
 
-- Synthetic by design: fictional school, randomly combined names, phone numbers from a fake
-  reserved range.
-- Scrubbed at ingest: phone numbers, links and media never reach the store.
-- Pseudonymised store: once a name is linked, the stored text carries the roster id
-  (`[A03] ran well`). The original line stays in `data/private/` (git-ignored) so every
-  citation can still open it.
-- Local only: extraction runs on an open-weight model through Ollama. The Streamlit server binds
-  to localhost.
-- Minimal display: first name, class, state and cited facts.
-- `var/` and `data/private/` are git-ignored.
+- Round cadence and baseline norms are assumptions until HRS confirms them; percentiles are relative to this programme, not national norms.
+- Percentiles are per round, so "improved" means improved relative to peers; raw progress (metres, seconds) is shown alongside.
+- Relay endurance units differ between schools in the real data; those schools are kept out of relay comparisons until fixed.
+- WebLLM needs WebGPU (recent Chrome/Edge, Android Chrome; Safari 26+); other browsers use rules.
+- Planned: NLI check on explanations, multi-school name collisions across transfers, offline write queue.
 
-## Known limitations
-
-- The same kind of local model writes the Hinglish chat and later reads it, which can flatter
-  accuracy. Sprint 3 adds hand-written messages.
-- Thresholds are placeholders until HRS validates them.
-- One conflict rule only (coach form vs. attendance). Full conflict detection and an NLI check on
-  citations come in Sprint 3.
+Illustrations: unDraw (free licence), see `web/public/illus/SOURCES.md`.

@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/* Light is the default scene (coordinator at a school ground or office in daylight);
+   dark follows the system appearance. Every text token is ≥4.5:1 on card and ground. */
+:root {
+  --ground: #f4f4f1;
+  --plate: #e6edd8;
+  --plate-ink: #2f4a22;
+  --card: #ffffff;
+  --card-2: #f5f6fa;
+  --ink: #14161c;
+  --ink-2: #555b6b;
+  --ink-3: #6f7686;
+  --line: #e4e7ee;
+  --line-2: #d3d7e1;
+  --invert: #14161c;
+  --invert-ink: #ffffff;
+  --accent: #e8590c;
+  --accent-ink: #b8460a;
+  --accent-soft: #ffe8dc;
+  --chart-context: #b6bccb;
+  --lav: #e6e1ff;
+  --lav-ink: #4b3fb0;
+  --sky: #dcebff;
+  --sky-ink: #1f5fae;
+  --mint: #dcf2d4;
+  --mint-ink: #2c6e2f;
+  --peach: #ffe3d3;
+  --peach-ink: #a8410c;
+  --lemon: #fff1c2;
+  --lemon-ink: #8a5a00;
+  --rose: #ffe2e8;
+  --rose-ink: #b0163a;
+  --slate: #eceef3;
+  --slate-ink: #4b5263;
+  --mark: #ffe680;
+  --shadow: 0 1px 2px rgb(20 22 28 / 0.04), 0 12px 28px -16px rgb(20 22 28 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(20 22 28 / 0.05), 0 20px 40px -18px rgb(20 22 28 / 0.28);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #0e1015;
+    --card: #181b22;
+    --card-2: #20242d;
+    --ink: #f2f3f7;
+    --ink-2: #b0b6c4;
+    --ink-3: #959cad;
+    --line: #2a2f3a;
+    --line-2: #384050;
+    --invert: #f2f3f7;
+    --invert-ink: #14161c;
+    --accent: #f2753a;
+    --accent-ink: #ff9a66;
+    --accent-soft: #3a2015;
+    --chart-context: #4a5162;
+    --lav: #29244a;
+    --lav-ink: #c4bbff;
+    --sky: #1a2b45;
+    --sky-ink: #9cc6ff;
+    --mint: #1b3320;
+    --mint-ink: #9ee09c;
+    --peach: #3a2418;
+    --peach-ink: #ffb48a;
+    --lemon: #362c10;
+    --lemon-ink: #ffd666;
+    --rose: #3b1a23;
+    --rose-ink: #ff9db3;
+    --slate: #252a34;
+    --slate-ink: #c0c6d3;
+    --mark: #6b5a12;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 28px -16px rgb(0 0 0 / 0.6);
+    --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.35), 0 20px 40px -18px rgb(0 0 0 / 0.7);
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
+  --color-ground: var(--ground);
+  --color-plate: var(--plate);
+  --color-plate-ink: var(--plate-ink);
+  --color-card: var(--card);
+  --color-card-2: var(--card-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-invert: var(--invert);
+  --color-invert-ink: var(--invert-ink);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-lav: var(--lav);
+  --color-lav-ink: var(--lav-ink);
+  --color-sky: var(--sky);
+  --color-sky-ink: var(--sky-ink);
+  --color-mint: var(--mint);
+  --color-mint-ink: var(--mint-ink);
+  --color-peach: var(--peach);
+  --color-peach-ink: var(--peach-ink);
+  --color-lemon: var(--lemon);
+  --color-lemon-ink: var(--lemon-ink);
+  --color-rose: var(--rose);
+  --color-rose-ink: var(--rose-ink);
+  --color-slate: var(--slate);
+  --color-slate-ink: var(--slate-ink);
+  --color-mark: var(--mark);
+  --shadow-card: var(--shadow);
+  --shadow-lift: var(--shadow-lift);
+  --radius-card: 28px;
+  --radius-tile: 22px;
+}
+
+html {
+  background: var(--ground);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--ground);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "tnum" 0;
+}
+
+::selection { background: var(--mark); color: var(--ink); }
+input, textarea { caret-color: var(--accent); }
+
+@layer base {
+  :focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--accent) 70%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 99px; border: 3px solid transparent; background-clip: content-box; }
+
+.num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.safe-b { padding-bottom: max(env(safe-area-inset-bottom), 12px); }
+
+@layer base {
+  /* Grid tracks never grow to a child's min-content (wide tables scroll inside instead). */
+  .grid > * { min-width: 0; }
+  a { color: inherit; text-decoration: none; }
+  button { cursor: pointer; font: inherit; color: inherit; }
+  button:disabled { cursor: default; }
+}
+
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+.skeleton {
+  background: linear-gradient(90deg, var(--card-2) 0px, var(--line) 120px, var(--card-2) 240px);
+  background-size: 800px 100%;
+  animation: shimmer 1.3s linear infinite;
+  border-radius: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}

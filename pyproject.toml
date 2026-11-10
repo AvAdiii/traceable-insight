@@ -1,7 +1,7 @@
 [project]
 name = "ti"
 version = "0.1.0"
-description = "Add your description here"
+description = "Traceable Insight: cited motor-skill insight and meet selection for Project Champion"
 authors = [
     { name = "AvAdiii", email = "theavaditya@gmail.com" }
 ]
@@ -13,9 +13,15 @@ dependencies = [
     "pandas>=3.0.6",
     "pyyaml>=6.0.3",
     "rapidfuzz>=3.14.6",
-    "streamlit>=1.65.0",
+    "openpyxl>=3.1",
+    "sqlalchemy>=2.0",
+    "pyjwt>=2.8",
+    "python-multipart>=0.0.9",
     "uvicorn>=0.54.0",
 ]
+
+[project.optional-dependencies]
+hosted = ["psycopg[binary]>=3.2"]
 
 [build-system]
 requires = ["uv_build>=0.12.23,<0.13.0"]

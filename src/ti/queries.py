@@ -1,377 +1,420 @@
-"""Read layer shared by the coordinator view (A8) and the API (A7).
+"""Read layer shared by every API route. Every number it returns carries its cell citation."""
 
-Shows only what the decision needs: first name, class, state and cited facts.
-No scores or rankings of children are exposed. The store holds pseudonymised text; the
-original wording comes from the local private copy when it is on this machine.
-"""
+import datetime as dt
+from collections import Counter, defaultdict
+from statistics import mean, median
 
-import json
-import re
+from sqlalchemy import select
 
-from ti.link import REVIEW_MIN
-from ti.store import private
-from ti.state import STATES
+from ti import shortlist
+from ti.db import (Child, ChildRound, Event, EventItem, Flag, Issue, Measurement, Record, Result,
+                   Round, School, Selection, Todo, Upload, User)
+from ti.pipeline import VALID
+from ti.template import ALL, BODY, TESTS
 
-
-def _meta(conn) -> dict:
-    return {k: json.loads(v) for k, v in conn.execute("SELECT key, value FROM run_meta")}
-
-
-def _originals(conn) -> dict:
-    return private.load(_meta(conn).get("private_copy"))
-
-
-def school_overview(conn) -> dict:
-    rows = conn.execute(
-        "SELECT c.child_id, c.first, c.class, s.state, s.reason, "
-        "(SELECT COUNT(*) FROM facts f WHERE f.child_id = c.child_id) AS n_facts "
-        "FROM children c JOIN child_states s USING (child_id) ORDER BY c.first").fetchall()
-    groups = {s: [] for s in STATES}
-    for r in rows:
-        groups[r["state"]].append({
-            "child_id": r["child_id"], "first": r["first"], "class": r["class"],
-            "reasons": json.loads(r["reason"]), "n_facts": r["n_facts"]})
-    review = conn.execute("SELECT COUNT(*) FROM mentions WHERE status = 'review'").fetchone()[0]
-    return {"meta": _meta(conn), "groups": groups, "review_open": review}
+FLAG_META = {
+    "top": {"label": "Top performer", "short": "Top"},
+    "improved": {"label": "Most improved", "short": "Improved"},
+    "push": {"label": "Needs a push", "short": "Needs a push"},
+    "declining": {"label": "Declining", "short": "Declining"},
+    "missing": {"label": "Missing test", "short": "Missing"},
+}
 
 
-def _fact_row(r, orig: dict | None = None) -> dict:
-    o = (orig or {}).get("facts", {}).get(r["fact_id"], {})
-    return {"fact_id": r["fact_id"], "type": r["type"], "date": r["date"],
-            "quote": o.get("quote", r["quote"]), "summary": o.get("summary", r["summary"]),
-            "stored_quote": r["quote"], "value": json.loads(r["value"] or "{}"),
-            "line_id": r["line_id"], "source_file": r["source_file"],
-            "ref": r["ref"], "kind": r["kind"], "surface": r["surface"],
-            "link_status": r["status"], "extractor": r["extractor"]}
+def rounds(s) -> list[Round]:
+    return sorted(s.scalars(select(Round)), key=lambda r: r.test_date)
 
 
-FACT_SQL = ("SELECT f.*, l.source_file, l.ref, l.kind, m.surface, m.status FROM facts f "
-            "JOIN source_lines l USING (line_id) LEFT JOIN mentions m USING (mention_id) ")
+def round_dict(r: Round) -> dict:
+    return {"id": r.id, "label": r.label, "kind": r.kind, "test_date": r.test_date.isoformat()}
 
 
-def child_detail(conn, child_id: str) -> dict | None:
-    c = conn.execute("SELECT c.*, s.state, s.reason, s.evidence, s.rule_refs FROM children c "
-                     "JOIN child_states s USING (child_id) WHERE child_id = ?",
-                     (child_id,)).fetchone()
-    if c is None:
-        return None
-    evidence = json.loads(c["evidence"])
-    orig = _originals(conn)
-    facts = [_fact_row(r, orig) for r in conn.execute(
-        FACT_SQL + "WHERE f.child_id = ? ORDER BY f.date, l.kind, f.fact_id", (child_id,))]
-    by_id = {f["fact_id"]: f for f in facts}
-    rules = [dict(r) for r in conn.execute(
-        f"SELECT line_id, source_file, ref, text, meta FROM source_lines WHERE line_id IN "
-        f"({','.join('?' * len(json.loads(c['rule_refs'])))})", json.loads(c["rule_refs"]))]
-    for r in rules:
-        r["title"] = json.loads(r.pop("meta"))["title"]
+def _scope(q, col, allowed):
+    return q if allowed is None else q.where(col.in_(allowed))
+
+
+def meta(s, user: User, allowed) -> dict:
+    users = {u.id: u for u in s.scalars(select(User))}
+    schools = [school_brief(x, users) for x in s.scalars(_scope(select(School), School.id, allowed))]
     return {
-        "child_id": c["child_id"], "first": c["first"], "class": c["class"],
-        "state": c["state"], "reasons": json.loads(c["reason"]),
-        "evidence": [by_id[i] for i in evidence if i in by_id],
-        "rules": rules,
-        "facts": facts,
+        "user": user_dict(user),
+        "schools": sorted(schools, key=lambda x: x["short"]),
+        "rounds": [round_dict(r) for r in rounds(s)],
+        "tests": [{"key": t.key, "label": t.label, "full": t.full, "unit": t.unit, "skill": t.skill,
+                   "lower_is_better": t.lower_is_better} for t in TESTS.values()],
+        "disciplines": [{"key": k, **{kk: vv for kk, vv in v.items()}}
+                        for k, v in shortlist.DISCIPLINES.items()],
+        "flags": [{"key": k, **v} for k, v in FLAG_META.items()],
+        "coaches": [user_dict(u) for u in users.values() if u.role != "manager"],
     }
 
 
-def source_context(conn, line_id: int, radius: int = 2) -> dict | None:
-    """The cited line with its neighbours in the same file, for the citation viewer."""
-    line = conn.execute("SELECT * FROM source_lines WHERE line_id = ?", (line_id,)).fetchone()
-    if line is None:
+def user_dict(u: User | None) -> dict | None:
+    if u is None:
         return None
-    rows = conn.execute(
-        "SELECT * FROM (SELECT * FROM source_lines WHERE source_file = ? AND line_id < ? "
-        "ORDER BY line_id DESC LIMIT ?) UNION ALL SELECT * FROM source_lines WHERE line_id = ? "
-        "UNION ALL SELECT * FROM (SELECT * FROM source_lines WHERE source_file = ? AND "
-        "line_id > ? ORDER BY line_id LIMIT ?) ORDER BY line_id",
-        (line["source_file"], line_id, radius, line_id, line["source_file"], line_id,
-         radius)).fetchall()
-    meta = json.loads(line["meta"])
-    texts = _originals(conn)["lines"]
-    return {
-        "line_id": line_id, "source_file": line["source_file"], "ref": line["ref"],
-        "kind": line["kind"], "header": meta.get("header"),
-        "lines": [{"line_id": r["line_id"], "ref": r["ref"],
-                   "text": texts.get(r["line_id"], r["text"]), "stored_text": r["text"],
-                   "meta": json.loads(r["meta"]), "cited": r["line_id"] == line_id}
-                  for r in rows],
-    }
+    return {"id": u.id, "name": u.name, "email": u.email, "role": u.role}
 
 
-def review_queue(conn) -> list[dict]:
-    names = {r["child_id"]: dict(r) for r in conn.execute(
-        "SELECT child_id, first, surname, class FROM children")}
-    out = []
-    texts = _originals(conn)["lines"]
-    for r in conn.execute(
-            "SELECT m.mention_id, m.surface, m.candidates, l.line_id, l.source_file, l.ref, "
-            "l.text, l.meta FROM mentions m JOIN source_lines l USING (line_id) "
-            "WHERE m.status = 'review' ORDER BY l.line_id"):
-        scored = json.loads(r["candidates"])
-        top = scored[0][1] if scored else 0
-        # Only plausible matches: close to the best score and above the review floor.
-        cands = [{**names[cid], "child_id": cid} for cid, sc in scored
-                 if cid in names and sc >= max(REVIEW_MIN, top - 10)]
-        out.append({"mention_id": r["mention_id"], "surface": r["surface"],
-                    "line_id": r["line_id"], "source_file": r["source_file"], "ref": r["ref"],
-                    "text": texts.get(r["line_id"], r["text"]), "meta": json.loads(r["meta"]),
-                    "candidates": cands})
+def school_brief(x: School, users: dict) -> dict:
+    return {"id": x.id, "name": x.name, "short": x.short, "area": x.area, "hue": x.hue,
+            "trainer": user_dict(users.get(x.trainer_id)),
+            "supervisor": user_dict(users.get(x.supervisor_id))}
+
+
+# ------------------------------------------------------------------ children
+
+def latest_by_child(s, allowed, round_id=None) -> dict[str, ChildRound]:
+    rmap = {r.id: r for r in rounds(s)}
+    q = _scope(select(ChildRound), ChildRound.school_id, allowed)
+    if round_id:
+        q = q.where(ChildRound.round_id == round_id)
+    out = {}
+    for cr in s.scalars(q):
+        if cr.child_id not in out or rmap[cr.round_id].test_date > rmap[out[cr.child_id].round_id].test_date:
+            out[cr.child_id] = cr
     return out
 
 
-def resolve_mention(conn, mention_id: int, child_id: str) -> None:
-    """Coordinator decision: this mention is this child. Survives pipeline re-runs."""
-    m = conn.execute("SELECT m.surface, l.source_file, l.ref FROM mentions m "
-                     "JOIN source_lines l USING (line_id) WHERE mention_id = ?",
-                     (mention_id,)).fetchone()
-    conn.execute("INSERT OR REPLACE INTO link_overrides (source_file, ref, surface, child_id) "
-                 "VALUES (?,?,?,?)", (m["source_file"], m["ref"], m["surface"], child_id))
-    conn.execute("UPDATE mentions SET status = 'override', child_id = ? WHERE mention_id = ?",
-                 (child_id, mention_id))
-    conn.execute("UPDATE facts SET child_id = ? WHERE mention_id = ?", (child_id, mention_id))
-    _rewrite(conn, mention_id, lambda t: private.pseudonymise(t, [(m["surface"], child_id)]))
-    conn.commit()
-
-
-def _rewrite(conn, mention_id: int, fn) -> None:
-    """Apply fn to the stored text of a mention's line and to that line's facts."""
-    line_id = conn.execute("SELECT line_id FROM mentions WHERE mention_id = ?",
-                           (mention_id,)).fetchone()[0]
-    text = conn.execute("SELECT text FROM source_lines WHERE line_id = ?", (line_id,)).fetchone()[0]
-    conn.execute("UPDATE source_lines SET text = ? WHERE line_id = ?", (fn(text), line_id))
-    for fid, q, sm in conn.execute("SELECT fact_id, quote, summary FROM facts WHERE line_id = ?",
-                                   (line_id,)).fetchall():
-        conn.execute("UPDATE facts SET quote = ?, summary = ? WHERE fact_id = ?",
-                     (fn(q), fn(sm), fid))
-
-
-def unlinked_facts(conn, mention_id: int) -> list[dict]:
-    orig = _originals(conn)
-    return [_fact_row(r, orig) for r in conn.execute(FACT_SQL + "WHERE f.mention_id = ?",
-                                                     (mention_id,))]
-
-
-def resolved_mentions(conn) -> list[dict]:
-    """Coordinator decisions made in the review queue, newest first."""
-    return [dict(r) for r in conn.execute(
-        "SELECT m.mention_id, m.surface, m.child_id, c.first, c.surname, c.class, "
-        "l.line_id, l.source_file, l.ref, l.text FROM mentions m "
-        "JOIN source_lines l USING (line_id) JOIN children c ON c.child_id = m.child_id "
-        "WHERE m.status = 'override' ORDER BY m.mention_id DESC")]
-
-
-def undo_resolution(conn, mention_id: int) -> None:
-    """Send a resolved mention back to the review queue."""
-    m = conn.execute("SELECT m.surface, m.child_id, l.source_file, l.ref FROM mentions m "
-                     "JOIN source_lines l USING (line_id) WHERE mention_id = ?",
-                     (mention_id,)).fetchone()
-    _rewrite(conn, mention_id,
-             lambda t: t.replace(private.token(m["child_id"]), m["surface"], 1))
-    conn.execute("DELETE FROM link_overrides WHERE source_file = ? AND ref = ? AND surface = ?",
-                 (m["source_file"], m["ref"], m["surface"]))
-    conn.execute("UPDATE mentions SET status = 'review', child_id = NULL WHERE mention_id = ?",
-                 (mention_id,))
-    conn.execute("UPDATE facts SET child_id = NULL WHERE mention_id = ?", (mention_id,))
-    conn.commit()
-
-
-# ---------------------------------------------------------------- Figma screens (Hack 1)
-
-STATE_ORDER = STATES
-
-
-def display_names(conn) -> dict[str, str]:
-    """First name and surname initial, as the coordinator view shows children ("Ravi K.")."""
-    return {r["child_id"]: f"{r['first']} {r['surname'][0]}."
-            for r in conn.execute("SELECT child_id, first, surname FROM children")}
-
-
-def home_summary(conn) -> dict:
-    """01 Home: one line per school with counts the coordinator acts on."""
-    counts = dict(conn.execute("SELECT state, COUNT(*) FROM child_states GROUP BY state"))
-    review = conn.execute("SELECT COUNT(*) FROM mentions WHERE status = 'review'").fetchone()[0]
-    checks = len(name_checks(conn)["uncertain"])
-    actions = conn.execute("SELECT COUNT(DISTINCT child_id) FROM decisions").fetchone()[0]
-    last = conn.execute("SELECT MAX(date) FROM facts WHERE type = 'attendance'").fetchone()[0]
-    return {"meta": _meta(conn), "counts": counts, "names_to_check": review + checks,
-            "actions_saved": actions, "last_session": last,
-            "children": sum(counts.values())}
-
-
-SOURCE_GROUPS = [
-    ("whatsapp", "WhatsApp chat", "whatsapp.txt"),
-    ("attendance", "Attendance sheets", "attendance_wk*.csv"),
-    ("coach_form", "Coach session forms", "coach_forms.csv"),
-    ("assessment", "Fitness assessments", "assessments.csv"),
-]
-
-
-def sources_status(conn, school_dir) -> list[dict]:
-    """02 Add Sources: what was read from each source, and what was hard to read."""
-    meta = _meta(conn)
-    rejected = meta.get("rejected_by_file", {})
-    out = []
-    for kind, label, pattern in SOURCE_GROUPS:
-        files = sorted(school_dir.glob(pattern))
-        n_lines = conn.execute("SELECT COUNT(*) FROM source_lines WHERE kind = ?",
-                               (kind,)).fetchone()[0]
-        kids = conn.execute(
-            "SELECT COUNT(DISTINCT m.child_id) FROM mentions m JOIN source_lines l "
-            "USING (line_id) WHERE l.kind = ? AND m.child_id IS NOT NULL", (kind,)).fetchone()[0]
-        detail = {
-            "whatsapp": f"{n_lines} messages read",
-            "attendance": f"{len(files)} weekly sheets, {n_lines} rows, {kids} children",
-            "coach_form": f"{n_lines} session forms read",
-            "assessment": f"{n_lines} records, {kids} children",
-        }[kind]
-        hard = sum(v for f, v in rejected.items() if any(f == x.name for x in files))
-        out.append({"kind": kind, "label": label, "files": [f.name for f in files],
-                    "detail": detail, "ok": bool(files) and n_lines > 0,
-                    "warning": (f"{hard} note{'s' if hard != 1 else ''} could not be traced to "
-                                f"the text, so they were left out") if hard else ""})
+def _prev_composite(s, latest: dict[str, ChildRound]) -> dict[str, float]:
+    rmap = {r.id: r for r in rounds(s)}
+    out = {}
+    best = {}
+    for cr in s.scalars(select(ChildRound).where(ChildRound.child_id.in_(list(latest)))):
+        cur = latest[cr.child_id]
+        if rmap[cr.round_id].test_date < rmap[cur.round_id].test_date and cr.composite is not None:
+            if cr.child_id not in best or rmap[cr.round_id].test_date > best[cr.child_id]:
+                best[cr.child_id] = rmap[cr.round_id].test_date
+                out[cr.child_id] = cr.composite
     return out
 
 
-def name_checks(conn) -> dict:
-    """03 Check Names.
-
-    same_child: per child, the different ways their name was written and linked, with the
-      weakest (fuzzy) ones marked uncertain so the coordinator can say Yes or No.
-    uncertain: mention groups that need a Yes/No.
-    pick: review-queue items where two or more children fit ("Is 'ravi' from ...").
-    """
-    kids = {r["child_id"]: dict(r) for r in conn.execute("SELECT * FROM children")}
-    rows = conn.execute(
-        "SELECT m.mention_id, m.surface, m.status, m.child_id, m.score, l.kind, l.source_file, "
-        "l.ref, l.line_id FROM mentions m JOIN source_lines l USING (line_id) "
-        "WHERE m.child_id IS NOT NULL").fetchall()
-    groups: dict[tuple, dict] = {}
-    for r in rows:
-        c = kids[r["child_id"]]
-        if r["surface"] in (c["first"], f"{c['first']} {c['surname']}"):
-            continue  # written exactly as on the roster: nothing to check
-        g = groups.setdefault((r["child_id"], r["surface"]), {
-            "child_id": r["child_id"], "surface": r["surface"], "mention_ids": [],
-            "score": r["score"], "kinds": set(), "status": r["status"], "line_id": r["line_id"]})
-        g["mention_ids"].append(r["mention_id"])
-        g["kinds"].add(r["kind"])
-        g["score"] = min(g["score"] or 100, r["score"] or 100)
-        if r["status"] == "override":
-            g["status"] = "override"
-    by_child: dict[str, list] = {}
-    for g in groups.values():
-        g["kinds"] = sorted(g["kinds"])
-        g["uncertain"] = g["status"] != "override" and (g["score"] or 100) < UNCERTAIN_BELOW
-        by_child.setdefault(g["child_id"], []).append(g)
-    same_child = []
-    for cid, gs in by_child.items():
-        gs.sort(key=lambda g: (not g["uncertain"], -len(g["mention_ids"])))
-        same_child.append({**kids[cid], "variants": gs})
-    same_child.sort(key=lambda c: (-sum(v["uncertain"] for v in c["variants"]),
-                                   -len(c["variants"]), c["first"]))
-    return {"same_child": same_child,
-            "uncertain": [g for gs in by_child.values() for g in gs if g["uncertain"]],
-            "pick": review_queue(conn)}
-
-
-UNCERTAIN_BELOW = 95.0   # linked, but by a fuzzy match the coordinator should confirm
-
-
-def confirm_link(conn, mention_ids: list[int]) -> None:
-    """'Yes, same child': keep the link and remember the decision across re-runs."""
-    for mid in mention_ids:
-        m = conn.execute("SELECT m.surface, m.child_id, l.source_file, l.ref FROM mentions m "
-                         "JOIN source_lines l USING (line_id) WHERE mention_id = ?",
-                         (mid,)).fetchone()
-        conn.execute("INSERT OR REPLACE INTO link_overrides (source_file, ref, surface, child_id) "
-                     "VALUES (?,?,?,?)", (m["source_file"], m["ref"], m["surface"], m["child_id"]))
-        conn.execute("UPDATE mentions SET status = 'override' WHERE mention_id = ?", (mid,))
-    conn.commit()
-
-
-def reject_link(conn, mention_ids: list[int]) -> None:
-    """'No': this name is not that child. The facts leave the child and the text gets the
-    written name back."""
-    for mid in mention_ids:
-        m = conn.execute("SELECT m.surface, m.child_id, l.source_file, l.ref FROM mentions m "
-                         "JOIN source_lines l USING (line_id) WHERE mention_id = ?",
-                         (mid,)).fetchone()
-        _rewrite(conn, mid, lambda t, m=m: t.replace(private.token(m["child_id"]),
-                                                     m["surface"], 1))
-        conn.execute("INSERT OR REPLACE INTO link_overrides (source_file, ref, surface, child_id) "
-                     "VALUES (?,?,?,'-')", (m["source_file"], m["ref"], m["surface"]))
-        conn.execute("UPDATE mentions SET status = 'unlinked', child_id = NULL "
-                     "WHERE mention_id = ?", (mid,))
-        conn.execute("UPDATE facts SET child_id = NULL WHERE mention_id = ?", (mid,))
-    conn.commit()
-
-
-def link_stats(conn, child_id: str) -> dict:
-    """'Linked from 5 mentions across 3 sources. Lowest name match 88%.'"""
-    r = conn.execute(
-        "SELECT COUNT(*), COUNT(DISTINCT l.kind), MIN(m.score) FROM mentions m "
-        "JOIN source_lines l USING (line_id) WHERE m.child_id = ?", (child_id,)).fetchone()
-    return {"mentions": r[0], "sources": r[1], "lowest": r[2]}
-
-
-def save_resolution(conn, child_id: str, date: str, choice: str, sources: list[int]) -> None:
-    conn.execute("INSERT OR REPLACE INTO resolutions (child_id, date, choice, sources) "
-                 "VALUES (?,?,?,?)", (child_id, date, choice, json.dumps(sources)))
-    conn.commit()
-
-
-def resolutions(conn, child_id: str) -> list[dict]:
-    return [dict(r) for r in conn.execute(
-        "SELECT * FROM resolutions WHERE child_id = ? ORDER BY date", (child_id,))]
-
-
-def clear_resolution(conn, child_id: str, date: str) -> None:
-    conn.execute("DELETE FROM resolutions WHERE child_id = ? AND date = ?", (child_id, date))
-    conn.commit()
-
-
-def save_decision(conn, child_id: str, action: str, coach: str, start: str | None,
-                  end: str | None, notes: str, sources: list[int]) -> int:
-    state = conn.execute("SELECT state FROM child_states WHERE child_id = ?",
-                         (child_id,)).fetchone()
-    cur = conn.execute(
-        "INSERT INTO decisions (child_id, action, coach, start_date, end_date, notes, sources, "
-        "state_at_decision) VALUES (?,?,?,?,?,?,?,?)",
-        (child_id, action.strip(), coach.strip(), start, end, notes.strip(),
-         json.dumps(sources), state[0] if state else None))
-    conn.commit()
-    return cur.lastrowid
-
-
-def decisions(conn, child_id: str | None = None) -> list[dict]:
-    names = display_names(conn)
-    cls = dict(conn.execute("SELECT child_id, class FROM children"))
-    sql = "SELECT * FROM decisions"
-    args: tuple = ()
-    if child_id:
-        sql += " WHERE child_id = ?"
-        args = (child_id,)
-    out = []
-    for r in conn.execute(sql + " ORDER BY decision_id DESC", args):
-        d = dict(r)
-        d["sources"] = json.loads(d["sources"])
-        d["name"] = names.get(d["child_id"], d["child_id"])
-        d["class"] = cls.get(d["child_id"], "")
-        out.append(d)
-    return out
-
-
-def results(conn, child_ids: list[str] | None = None) -> dict:
-    """05 Results: children grouped by state (optionally a subset), each with its reasons
-    and how many cited facts back them."""
-    names = display_names(conn)
-    groups = {s: [] for s in STATES}
-    q = ("SELECT c.child_id, c.class, s.state, s.reason, s.evidence FROM children c "
-         "JOIN child_states s USING (child_id) ORDER BY c.first")
-    for r in conn.execute(q):
-        if child_ids is not None and r["child_id"] not in child_ids:
+def children(s, allowed, *, q=None, school=None, klass=None, gender=None, age_min=None,
+             age_max=None, flag=None, test=None, sort="best", round_id=None, coach=None,
+             limit=60, offset=0) -> dict:
+    latest = latest_by_child(s, allowed, round_id)
+    kids = {c.id: c for c in s.scalars(select(Child).where(Child.id.in_(list(latest))))}
+    schools = {x.id: x for x in s.scalars(select(School))}
+    flags = defaultdict(list)
+    for f in s.scalars(select(Flag).where(Flag.child_id.in_(list(latest)))):
+        flags[f.child_id].append({"kind": f.kind, "text": f.text})
+    ms = defaultdict(dict)
+    pairs = {(cid, cr.round_id) for cid, cr in latest.items()}
+    for m in s.scalars(select(Measurement).where(Measurement.child_id.in_(list(latest)),
+                                                 Measurement.field.in_(list(TESTS)))):
+        if (m.child_id, m.round_id) in pairs:
+            ms[m.child_id][m.field] = m
+    prev = _prev_composite(s, latest)
+    rows = []
+    ql = (q or "").lower().strip()
+    for cid, cr in latest.items():
+        k = kids[cid]
+        if ql and ql not in k.name.lower() and ql not in (k.parent or "").lower() and ql != cid.lower():
             continue
-        groups[r["state"]].append({
-            "child_id": r["child_id"], "name": names[r["child_id"]], "class": r["class"],
-            "reasons": json.loads(r["reason"]), "n_evidence": len(json.loads(r["evidence"]))})
-    return groups
+        if school and cr.school_id not in school.split(","):
+            continue
+        if coach and schools[cr.school_id].trainer_id != int(coach):
+            continue
+        if klass and cr.klass not in klass.split(","):
+            continue
+        if gender and k.gender != gender:
+            continue
+        if age_min is not None and (cr.age is None or cr.age < age_min):
+            continue
+        if age_max is not None and (cr.age is None or int(cr.age) > age_max):
+            continue
+        kinds = {f["kind"] for f in flags[cid]}
+        if flag and not set(flag.split(",")) & kinds:
+            continue
+        tests = {}
+        for f, m in ms[cid].items():
+            tests[f] = {"value": m.value, "percentile": m.percentile, "status": m.status}
+        rows.append({"id": cid, "name": k.name, "gender": k.gender, "klass": cr.klass,
+                     "age": cr.age, "school_id": cr.school_id, "school": schools[cr.school_id].short,
+                     "composite": cr.composite, "tests": tests, "flags": flags[cid],
+                     "trend": round(cr.composite - prev[cid], 1)
+                     if cid in prev and cr.composite is not None else None})
+
+    def key(r):
+        if test and test in TESTS:
+            p = r["tests"].get(test, {}).get("percentile")
+            v = p if (p is not None and r["tests"][test]["status"] in VALID) else None
+        else:
+            v = r["composite"]
+        if sort == "name":
+            return (r["name"].lower(),)
+        if sort == "improved":
+            return (r["trend"] is None, -(r["trend"] or 0))
+        if sort == "worst":
+            return (v is None, v if v is not None else 0)
+        return (v is None, -(v or 0))
+    rows.sort(key=key)
+    return {"total": len(rows), "rows": rows[offset:offset + limit]}
+
+
+def cite(s, m: Measurement, uploads=None) -> dict:
+    r = s.get(Record, m.record_id)
+    u = (uploads or {}).get(r.upload_id) or s.get(Upload, r.upload_id)
+    return {"record_id": r.id, "file": u.filename, "sheet": r.sheet, "cell": m.cell, "row": r.row,
+            "raw": m.raw}
+
+
+def child_detail(s, cid: str, allowed) -> dict | None:
+    k = s.get(Child, cid)
+    if k is None or (allowed is not None and k.school_id not in allowed):
+        return None
+    users = {u.id: u for u in s.scalars(select(User))}
+    sch = s.get(School, k.school_id)
+    rmap = {r.id: r for r in rounds(s)}
+    uploads = {u.id: u for u in s.scalars(select(Upload))}
+    crs = sorted(s.scalars(select(ChildRound).where(ChildRound.child_id == cid)),
+                 key=lambda c: rmap[c.round_id].test_date)
+    ms = defaultdict(dict)
+    for m in s.scalars(select(Measurement).where(Measurement.child_id == cid)):
+        ms[m.round_id][m.field] = m
+    out_rounds = []
+    for cr in crs:
+        tests = {}
+        for f, m in ms[cr.round_id].items():
+            tests[f] = {"value": m.value, "raw": m.raw, "unit": ALL[f].unit, "status": m.status,
+                        "note": m.note, "percentile": m.percentile, "pool": m.pool,
+                        "cite": cite(s, m, uploads)}
+        out_rounds.append({**round_dict(rmap[cr.round_id]), "composite": cr.composite,
+                           "age": cr.age, "klass": cr.klass, "tests": tests})
+    names = sorted({r.name for r in s.scalars(select(Record).where(Record.child_id == cid))} - {k.name})
+    flags = [{"kind": f.kind, "text": f.text, "evidence": f.evidence}
+             for f in s.scalars(select(Flag).where(Flag.child_id == cid))]
+    achievements = []
+    for res, item, ev in s.execute(select(Result, EventItem, Event).join(EventItem, Result.item_id == EventItem.id)
+                                   .join(Event, EventItem.event_id == Event.id).where(Result.child_id == cid)):
+        achievements.append({"event": ev.title, "event_id": ev.id, "date": ev.start_date.isoformat(),
+                             "level": ev.level, "item": f"{item.name} ({item.gender})",
+                             "position": res.position, "mark": res.mark, "note": res.note})
+    selections = []
+    for sel, item, ev in s.execute(select(Selection, EventItem, Event).join(EventItem, Selection.item_id == EventItem.id)
+                                   .join(Event, EventItem.event_id == Event.id).where(Selection.child_id == cid)):
+        selections.append({"event": ev.title, "event_id": ev.id, "date": ev.start_date.isoformat(),
+                           "item": f"{item.name} ({item.gender})", "status": sel.status})
+    issues = [issue_dict(i) for i in s.scalars(select(Issue).where(Issue.child_id == cid,
+                                                                   Issue.resolved.is_(False)))]
+    progress = {}
+    if len(out_rounds) >= 2:
+        a, b = out_rounds[0]["tests"], out_rounds[-1]["tests"]
+        for f in TESTS:
+            if f in a and f in b and a[f]["value"] and b[f]["value"] \
+                    and a[f]["status"] in VALID and b[f]["status"] in VALID:
+                d = b[f]["value"] - a[f]["value"]
+                better = d < 0 if TESTS[f].lower_is_better else d > 0
+                progress[f] = {"from": a[f]["value"], "to": b[f]["value"], "delta": round(d, 2),
+                               "pct": round(100 * d / a[f]["value"], 1), "better": better}
+    return {"id": k.id, "name": k.name, "aliases": names, "parent": k.parent,
+            "dob": k.dob.isoformat() if k.dob else None, "gender": k.gender, "klass": k.klass,
+            "school": school_brief(sch, users), "rounds": out_rounds, "flags": flags,
+            "achievements": achievements, "selections": selections, "issues": issues,
+            "progress": progress}
+
+
+def receipt(s, record_id: int, field: str | None, allowed, radius: int = 3, col: str | None = None) -> dict | None:
+    """The cited spreadsheet row with its neighbours, as the trainer typed it."""
+    r = s.get(Record, record_id)
+    if r is None or (allowed is not None and r.school_id not in allowed):
+        return None
+    u = s.get(Upload, r.upload_id)
+    sheet = u.sheets.get(r.sheet, {})
+    near = s.scalars(select(Record).where(Record.upload_id == r.upload_id, Record.sheet == r.sheet,
+                                          Record.row.between(r.row - radius, r.row + radius))
+                     .order_by(Record.row)).all()
+    col = (r.cells.get(field, {}).get("col") if field else None) or col
+    twin = s.get(Record, r.twin_id) if r.twin_id else None
+    return {"file": u.filename, "sha256": u.sha256, "uploaded_at": u.uploaded_at.isoformat(),
+            "round": round_dict(s.get(Round, u.round_id)), "sheet": r.sheet,
+            "header_row": sheet.get("header_row", 1), "headers": sheet.get("headers", []),
+            "row": r.row, "col": col, "field": field,
+            "rows": [{"row": x.row, "cells": x.raw_row, "cited": x.id == r.id} for x in near],
+            "twin": {"sheet": twin.sheet, "row": twin.row, "headers": u.sheets.get(twin.sheet, {}).get("headers", []),
+                     "cells": twin.raw_row} if twin else None}
+
+
+# ------------------------------------------------------------------ overview / schools
+
+def _avg_by_round(s, allowed) -> list[dict]:
+    """Programme progress: mean raw value per test per round, plus mean composite."""
+    rmap = {r.id: r for r in rounds(s)}
+    crs = s.scalars(_scope(select(ChildRound), ChildRound.school_id, allowed)).all()
+    ok = {(c.child_id, c.round_id) for c in crs}
+    acc = defaultdict(lambda: defaultdict(list))
+    for m in s.scalars(select(Measurement).where(Measurement.field.in_(list(TESTS)))):
+        if (m.child_id, m.round_id) in ok and m.status in VALID and m.value is not None:
+            acc[m.round_id][m.field].append(m.value)
+    comp = defaultdict(list)
+    for c in crs:
+        if c.composite is not None:
+            comp[c.round_id].append(c.composite)
+    out = []
+    for rid in sorted(acc, key=lambda r: rmap[r].test_date):
+        out.append({**round_dict(rmap[rid]), "children": len({c.child_id for c in crs if c.round_id == rid}),
+                    **{f: round(mean(v), 3) for f, v in acc[rid].items()}})
+    return out
+
+
+def overview(s, allowed, today: dt.date | None = None) -> dict:
+    today = today or dt.date.today()
+    latest = latest_by_child(s, allowed)
+    flags = defaultdict(list)
+    for f in s.scalars(select(Flag).where(Flag.child_id.in_(list(latest)))):
+        flags[f.kind].append(f)
+    kids = {c.id: c for c in s.scalars(select(Child).where(Child.id.in_(list(latest))))}
+    schools = {x.id: x for x in s.scalars(select(School))}
+
+    def brief(f: Flag) -> dict:
+        k, cr = kids[f.child_id], latest[f.child_id]
+        return {"id": k.id, "name": k.name, "klass": cr.klass, "gender": k.gender,
+                "school": schools[cr.school_id].short, "school_id": cr.school_id,
+                "composite": cr.composite, "text": f.text}
+    lists = {kind: [brief(f) for f in sorted(fl, key=lambda f: -f.weight)[:8]]
+             for kind, fl in flags.items()}
+    counts = {kind: len({f.child_id for f in fl}) for kind, fl in flags.items()}
+    iq = _scope(select(Issue).where(Issue.resolved.is_(False)), Issue.school_id, allowed)
+    issues = s.scalars(iq).all()
+    inbox = Counter(i.severity for i in issues)
+    progress = _avg_by_round(s, allowed)
+    change = {}
+    if len(progress) >= 2:
+        a, b = progress[0], progress[-1]
+        for f in TESTS:
+            if f in a and f in b and a[f]:
+                d = (b[f] - a[f]) / a[f] * 100
+                change[f] = {"pct": round(d, 1), "better": (d < 0) if TESTS[f].lower_is_better else (d > 0),
+                             "from": a[f], "to": b[f]}
+    ev = upcoming(s, today, 5)
+    todos = [todo_dict(t) for t in s.scalars(select(Todo).where(Todo.done.is_(False))
+                                              .order_by(Todo.due_date).limit(6))]
+    sids = sorted({c.school_id for c in latest.values()})
+    by_school = {sid: _avg_by_round(s, {sid}) for sid in sids}
+    return {"children": len(latest), "schools": len(sids), "progress_by_school": by_school,
+            "school_names": {x.id: x.short for x in schools.values() if x.id in sids},
+            "flag_counts": counts, "lists": lists,
+            "inbox": {"open": len(issues), **inbox}, "progress": progress, "change": change,
+            "events": ev, "todos": todos, "rounds": [round_dict(r) for r in rounds(s)]}
+
+
+def schools_summary(s, allowed) -> list[dict]:
+    users = {u.id: u for u in s.scalars(select(User))}
+    latest = latest_by_child(s, allowed)
+    by_school = defaultdict(list)
+    for cr in latest.values():
+        by_school[cr.school_id].append(cr)
+    flags = defaultdict(Counter)
+    for f in s.scalars(select(Flag).where(Flag.child_id.in_(list(latest)))):
+        flags[latest[f.child_id].school_id][f.kind] += 1
+    pct = defaultdict(lambda: defaultdict(list))
+    pairs = {(cid, cr.round_id): cr.school_id for cid, cr in latest.items()}
+    for m in s.scalars(select(Measurement).where(Measurement.field.in_(list(TESTS)))):
+        sid = pairs.get((m.child_id, m.round_id))
+        if sid and m.percentile is not None and m.status in VALID:
+            pct[sid][m.field].append(m.percentile)
+    issues = Counter(i.school_id for i in s.scalars(select(Issue).where(Issue.resolved.is_(False))))
+    out = []
+    for x in s.scalars(_scope(select(School), School.id, allowed)):
+        crs = by_school.get(x.id, [])
+        comps = [c.composite for c in crs if c.composite is not None]
+        out.append({**school_brief(x, users), "children": len(crs),
+                    "composite": round(median(comps), 1) if comps else None,
+                    "skills": {f: round(median(v), 1) for f, v in pct[x.id].items()},
+                    "flags": dict(flags[x.id]), "issues": issues.get(x.id, 0),
+                    "classes": sorted({c.klass for c in crs}, key=lambda k: (len(k), k))})
+    return sorted(out, key=lambda x: -(x["composite"] or 0))
+
+
+def school_detail(s, sid: str, allowed) -> dict | None:
+    if allowed is not None and sid not in allowed:
+        return None
+    x = s.get(School, sid)
+    if x is None:
+        return None
+    summ = next(o for o in schools_summary(s, {sid}))
+    latest = latest_by_child(s, {sid})
+    classes = defaultdict(list)
+    for cr in latest.values():
+        classes[cr.klass].append(cr.composite)
+    cls = [{"klass": k, "children": len(v),
+            "composite": round(median([c for c in v if c is not None]), 1) if any(c is not None for c in v) else None}
+           for k, v in sorted(classes.items(), key=lambda kv: (len(kv[0]), kv[0]))]
+    return {**summ, "progress": _avg_by_round(s, {sid}), "classes_detail": cls,
+            "top": children(s, {sid}, sort="best", limit=5)["rows"],
+            "push": children(s, {sid}, flag="push", sort="worst", limit=5)["rows"]}
+
+
+# ------------------------------------------------------------------ inbox
+
+def issue_dict(i: Issue) -> dict:
+    return {"key": i.key, "kind": i.kind, "severity": i.severity, "school_id": i.school_id,
+            "upload_id": i.upload_id, "child_id": i.child_id, "field": i.field, "title": i.title,
+            "detail": i.detail, "record_ids": i.record_ids[:30], "options": i.options,
+            "count": i.count, "resolved": i.resolved, "resolution": i.resolution}
+
+
+SEV = {"high": 0, "medium": 1, "low": 2}
+
+
+def inbox(s, allowed, status="open", kind=None, school=None) -> dict:
+    q = _scope(select(Issue), Issue.school_id, allowed)
+    all_issues = s.scalars(q).all()
+    counts = Counter(i.kind for i in all_issues if not i.resolved)
+    rows = [i for i in all_issues if (i.resolved == (status == "resolved"))
+            and (not kind or i.kind == kind) and (not school or i.school_id == school)]
+    rows.sort(key=lambda i: (SEV[i.severity], i.kind, i.id))
+    return {"counts": dict(counts), "open": sum(counts.values()),
+            "resolved": sum(1 for i in all_issues if i.resolved),
+            "rows": [issue_dict(i) for i in rows]}
+
+
+# ------------------------------------------------------------------ events
+
+def upcoming(s, today: dt.date, n=5) -> list[dict]:
+    evs = s.scalars(select(Event).where(Event.start_date >= today).order_by(Event.start_date).limit(n))
+    return [event_brief(s, e) for e in evs]
+
+
+def event_brief(s, e: Event) -> dict:
+    items = s.scalars(select(EventItem).where(EventItem.event_id == e.id)).all()
+    ids = [i.id for i in items]
+    picked = Counter(sel.item_id for sel in s.scalars(select(Selection).where(
+        Selection.item_id.in_(ids), Selection.status == "selected"))) if ids else Counter()
+    slots = sum(i.slots for i in items)
+    todos = s.scalars(select(Todo).where(Todo.event_id == e.id)).all()
+    return {"id": e.id, "title": e.title, "kind": e.kind, "level": e.level,
+            "start_date": e.start_date.isoformat(),
+            "end_date": e.end_date.isoformat() if e.end_date else None, "start_time": e.start_time,
+            "venue": e.venue, "notes": e.notes, "school_ids": e.school_ids, "items": len(items),
+            "slots": slots, "picked": sum(min(picked[i.id], i.slots) for i in items),
+            "todos": len(todos), "todos_done": sum(1 for t in todos if t.done)}
+
+
+def event_detail(s, eid: int) -> dict | None:
+    e = s.get(Event, eid)
+    if e is None:
+        return None
+    items = []
+    kids = {}
+    for it in s.scalars(select(EventItem).where(EventItem.event_id == eid).order_by(EventItem.id)):
+        sels = s.scalars(select(Selection).where(Selection.item_id == it.id).order_by(Selection.status, Selection.rank)).all()
+        res = {r.child_id: r for r in s.scalars(select(Result).where(Result.item_id == it.id))}
+        rows = []
+        for sel in sels:
+            k = kids.get(sel.child_id) or s.get(Child, sel.child_id)
+            kids[sel.child_id] = k
+            r = res.get(sel.child_id)
+            rows.append({"child_id": k.id, "name": k.name, "klass": k.klass, "gender": k.gender,
+                         "school_id": k.school_id, "status": sel.status, "rank": sel.rank,
+                         "summary": sel.reason.get("summary", ""),
+                         "result": {"position": r.position, "mark": r.mark, "note": r.note} if r else None})
+        items.append({"id": it.id, "name": it.name, "discipline": it.discipline, "gender": it.gender,
+                      "age_min": it.age_min, "age_max": it.age_max, "slots": it.slots,
+                      "reserves": it.reserves, "selections": rows})
+    todos = [todo_dict(t) for t in s.scalars(select(Todo).where(Todo.event_id == eid).order_by(Todo.done, Todo.due_date))]
+    return {**event_brief(s, e), "items_detail": items, "todo_list": todos}
+
+
+def todo_dict(t: Todo) -> dict:
+    return {"id": t.id, "event_id": t.event_id, "text": t.text, "done": t.done,
+            "due_date": t.due_date.isoformat() if t.due_date else None}

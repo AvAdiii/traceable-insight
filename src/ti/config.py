@@ -1,19 +1,19 @@
-"""Project paths and runtime settings. Override with TI_* environment variables."""
+"""Paths and runtime settings. Override with TI_* environment variables.
+
+TI_DATABASE_URL picks the store: SQLite file locally (default), Postgres (Supabase) when hosted.
+"""
 
 import os
 from pathlib import Path
 
 ROOT = Path(os.environ.get("TI_ROOT", Path(__file__).resolve().parents[2]))
-DATA_DIR = ROOT / "data" / "synthetic"
 VAR_DIR = Path(os.environ.get("TI_VAR", ROOT / "var"))
-CONFIG_DIR = ROOT / "config"
-# Original (un-pseudonymised) source lines live here, outside git, so citations can open them.
-PRIVATE_DIR = Path(os.environ.get("TI_PRIVATE", ROOT / "data" / "private"))
+DEMO_DIR = ROOT / "data" / "demo"
+UPLOAD_DIR = Path(os.environ.get("TI_UPLOADS", VAR_DIR / "uploads"))
+WEB_DIST = ROOT / "web" / "dist"
 
-OLLAMA_URL = os.environ.get("TI_OLLAMA_URL", "http://localhost:11434")
-MODEL = os.environ.get("TI_OLLAMA_MODEL", "qwen2.5:7b")
-SEED = 7
-
-
-def db_path(school: str) -> Path:
-    return VAR_DIR / f"{school}.db"
+DATABASE_URL = os.environ.get("TI_DATABASE_URL", f"sqlite:///{VAR_DIR / 'ti.db'}")
+SECRET = os.environ.get("TI_SECRET", "dev-only-secret-change-me-before-hosting-0000")
+TOKEN_HOURS = int(os.environ.get("TI_TOKEN_HOURS", "72"))
+CORS_ORIGINS = [o for o in os.environ.get("TI_CORS", "http://localhost:5173").split(",") if o]
+SEED = 42

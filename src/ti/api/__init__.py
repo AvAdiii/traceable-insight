@@ -1,41 +1,39 @@
-"""A7 thin API over ti.queries: `uv run uvicorn ti.api:app`."""
+"""FastAPI app: `uv run uvicorn ti.api:app --reload`. Serves the built web app at / when present."""
 
-from fastapi import FastAPI, HTTPException
+from pathlib import Path
 
-from ti import config, queries
-from ti.store import db
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
-app = FastAPI(title="Traceable Insight", version="0.1.0")
+from ti import config, db
+from ti.api import ask, core, data, events
 
-
-def _conn(school: str):
-    path = config.db_path(school)
-    if not path.exists():
-        raise HTTPException(404, f"No run for {school}. Run run_pipeline.py first.")
-    return db.connect(path)
-
-
-@app.get("/schools/{school}")
-def school(school: str):
-    return queries.school_overview(_conn(school))
+app = FastAPI(title="Stride", version="2.0.0")
+app.add_middleware(CORSMiddleware, allow_origins=config.CORS_ORIGINS, allow_credentials=True,
+                   allow_methods=["*"], allow_headers=["*"])
+for r in (core.router, data.router, events.router, ask.router):
+    app.include_router(r)
 
 
-@app.get("/schools/{school}/children/{child_id}")
-def child(school: str, child_id: str):
-    out = queries.child_detail(_conn(school), child_id)
-    if out is None:
-        raise HTTPException(404, "child not found")
-    return out
+@app.on_event("startup")
+def _startup():
+    db.create_all()
 
 
-@app.get("/schools/{school}/sources/{line_id}")
-def source(school: str, line_id: int, radius: int = 2):
-    out = queries.source_context(_conn(school), line_id, radius)
-    if out is None:
-        raise HTTPException(404, "source line not found")
-    return out
+@app.get("/api/health")
+def health():
+    return {"ok": True}
 
 
-@app.get("/schools/{school}/review")
-def review(school: str):
-    return queries.review_queue(_conn(school))
+dist = Path(config.WEB_DIST)
+if dist.exists():
+    app.mount("/assets", StaticFiles(directory=dist / "assets"), name="assets")
+
+    @app.get("/{path:path}", include_in_schema=False)
+    def spa(path: str):
+        f = dist / path
+        if path and f.is_file():
+            return FileResponse(f)
+        return FileResponse(dist / "index.html")
