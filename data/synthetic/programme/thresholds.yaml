@@ -1,8 +1,0 @@
-synthetic: true
-note: Placeholder values written by the team; validate with HRS before real use.
-sessions_planned: 12
-min_recorded_sessions: 6
-require_midline_assessment: true
-attendance_rate_min: 0.6
-fitness_decline_pct: 8.0
-concern_mentions_min: 2
