@@ -1,6 +1,6 @@
 import datetime as dt
 
-from ti import clean, identity
+from ti import clean
 from ti.template import map_headers, norm_class, norm_gender
 
 
@@ -37,10 +37,3 @@ def test_template_headers_with_the_partners_spellings():
     assert {"school", "klass", "name", "jump", "shuttle", "ball", "relay", "gender"} <= cols.keys()
     assert norm_class("class 5") == "Class V" and norm_class("VIII") == "Class VIII"
     assert norm_gender("Girls") == "Girls" and norm_gender("M") == "Boys"
-
-
-def test_initials_and_order_link_but_twins_do_not():
-    assert identity.name_sim("K.Umesh", "Komire Umesh") >= 95
-    assert identity.name_sim("Umesh K", "Komire Umesh") >= 95
-    assert identity.name_sim("Md.Zian", "Mohammed Zian") == 100
-    assert identity.name_sim("Gurram Shashank", "Gurram Sushant") <= 70

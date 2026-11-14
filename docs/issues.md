@@ -1,24 +1,23 @@
-# GitHub issues (Hackathon 1 + Sprint 3)
+# GitHub issues: Hackathon 2
 
-Labels: `A1 Generator` … `A8 UI`. Milestones: `Hackathon 1`, `Sprint 3`.
-Each title starts with its tag. `scripts/create_issues.sh` creates these with `gh`.
+Labels: `B1 Data`, `B2 API`, `B3 Web`, `B4 Deploy` (one per box in the architecture diagram).
+Milestone: `Hackathon 2`. Every title starts with its tag. Each issue is closed by one pull
+request from its owner, squash-merged into `main`. The CI pull request goes first so every later
+change is checked; the store (#4) lands before the pipeline (#2) because the pipeline writes to it.
 
-| # | Title | Label | Priority | Milestone | Done when | Status |
-|---|---|---|---|---|---|---|
-| 1 | [A1] Define schemas and School A roster (25 fictional children, 1 coach, 1 PE teacher) | A1 Generator | Must | Hackathon 1 | `roster.csv` (25 children) + `staff.csv` (coach, PE teacher); schemas in `docs/schemas.md` | Done |
-| 2 | [A1] Generate attendance, coach forms and assessments from the roster | A1 Generator | Must | Hackathon 1 | 300 attendance rows, 12 forms, 50 assessment rows; same seed → same bytes | Done |
-| 3 | [A1] Generate Hinglish WhatsApp chat with name variants, fictional names and phone numbers | A1 Generator | Must | Hackathon 1 | ~200 messages, ~20% variant mentions, planted names survive the rewrite verbatim | Done |
-| 4 | [A1] Write ground_truth.json for planted cases | A1 Generator | Must | Hackathon 1 | every mention, conflict and gap logged; pipeline never reads it | Done |
-| 5 | [A1] Write the synthetic programme guideline with thresholds, marked as synthetic | A1 Generator | Must | Hackathon 1 | `guideline.md` (30 sections) + `thresholds.yaml`, both marked synthetic | Done |
-| 6 | [A2] Parsers for WhatsApp, attendance CSV and form exports | A2 Ingest | Must | Hackathon 1 | every source → SourceLines with stable `row:N` / `msg:N` refs | Done |
-| 7 | [A2] PII scrub at ingest: phone numbers, media and links | A2 Ingest | Should | Hackathon 1 | no phone/link/media text in the store (tested) | Done |
-| 8 | [A3] Extract per-child facts with quoted source span (local Ollama model) | A3 Extract | Must | Hackathon 1 | every stored quote is an exact substring of its line | Done |
-| 9 | [A4] Name matcher with confidence threshold and review queue | A4 Link | Must | Hackathon 1 | ≥ 85% mentions linked correctly; shared first name → review | Done |
-| 10 | [A5] SQLite schema and guideline thresholds file (Chroma index only if time allows) | A5 Store | Must | Hackathon 1 | schema rebuilds per run; overrides survive | Done (Chroma deferred) |
-| 11 | [A6] State rules for the four child states | A6 State | Must | Hackathon 1 | one state per child by precedence, with evidence and guideline section | Done |
-| 12 | [A7] Thin FastAPI endpoints for school, child facts and source lookup | A7 API | Should | Hackathon 1 | 4 endpoints tested with TestClient | Done |
-| 13 | [A8] Minimal coordinator view mirroring the Figma school and child screens | A8 UI | Must | Hackathon 1 | school view, child view, source viewer, review queue, check page | Done |
-| 14 | [A2–A6] run_pipeline.py one-command run for one school | A2–A6 | Must | Hackathon 1 | one command runs ingest → state and prints the check | Done |
-| 15 | [A4, A6] Score pipeline against ground_truth.json | A4, A6 | Must | Hackathon 1 | link accuracy, conflicts, gaps, citations reported vs targets | Done |
-| 16 | [A8] Fitness by school view from assessment data | A8 UI | Later | Sprint 3 | — | Open |
-| 17 | [A3] NLI citation check on every extracted fact | A3 Extract | Later | Sprint 3 | — | Open |
+Merge order: #10 → #1 → #4 → #2 → #3 → #5 → #6 → #7 → #8 → #9 → #11 → #12
+
+| # | Title | Label | Owner | Done when |
+|---|---|---|---|---|
+| 1 | [B1] HRS template reader and cell cleaning with citations | B1 Data | A V Aditya | template sheets found by header; every value keeps file › sheet › cell; typos repaired and explained (`tests/test_clean.py`) |
+| 2 | [B1] Identity across rounds, data checks, percentiles and flags | B1 Data | A V Aditya | children linked by name, initials, parent, DOB; checks raise Inbox issues; percentiles within gender × age; stackable flags |
+| 3 | [B1] Synthetic demo workbooks, seed and ground-truth check | B1 Data | A V Aditya | three rounds of synthetic workbooks with planted problems; linking exact against `ground_truth.json` (`tests/test_pipeline_v2.py`) |
+| 4 | [B2] Postgres-ready store, JWT roles and settings | B2 API | Shriya Kansal | same SQLAlchemy models on SQLite and Postgres via `TI_DATABASE_URL`; manager / supervisor / trainer tokens |
+| 5 | [B2] Read layer, uploads, Inbox decisions and cell receipts | B2 API | Shriya Kansal | one read layer; upload refuses duplicates; decisions with undo; receipt shows the row as typed |
+| 6 | [B2] Meets, AI shortlist with reasons, Ask executor | B2 API | Shriya Kansal | races, picks, reserves, results, to-dos; every shortlist reason cites a cell; Ask runs validated specs; demo seed (`tests/test_ask_api.py`) |
+| 7 | [B3] PWA shell, API client, auth and shared components | B3 Web | Tanishi Tyagi | installable PWA, sign-in, tab bar, Receipt sheet; Streamlit view retired |
+| 8 | [B3] Screens: Home, Children, Child, Schools, Calendar, Event, Inbox, Upload, Settings | B3 Web | Tanishi Tyagi | every screen on phone and laptop, light and dark; every number opens its receipt |
+| 9 | [B3] On-device Ask with WebLLM and fallback chain | B3 Web | Tanishi Tyagi | browser model → laptop Ollama → server rules; model choice in Settings |
+| 10 | [B4] Hack 2 issues and CI for tests, web build and image | B4 Deploy | Chandrani Saha | labels, milestone and these issues on GitHub; CI green on every PR |
+| 11 | [B4] Docker compose stack with Postgres, healthcheck and first-run seed | B4 Deploy | Chandrani Saha | fresh clone → `docker compose up --build` → app at :8000 with demo logins; data survives a restart |
+| 12 | [B4] README and docs for v2, Docker and the hosted demo | B4 Deploy | Chandrani Saha | README covers Docker, configuration, demo logins, architecture, hosted link |

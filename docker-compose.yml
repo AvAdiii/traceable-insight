@@ -1,0 +1,53 @@
+# One command from a fresh clone:  docker compose up --build   ->  http://localhost:8000
+# Demo logins: manager@champion.demo / supervisor@champion.demo / trainer@champion.demo, password "champion".
+# Optional laptop Ask model:  docker compose --profile ollama up --build
+# Settings come from .env (copy .env.example); every value has a working demo default.
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-stride}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-stride}
+      POSTGRES_DB: ${POSTGRES_DB:-stride}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    image: stride:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      TI_DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-stride}:${POSTGRES_PASSWORD:-stride}@db:5432/${POSTGRES_DB:-stride}
+      TI_SECRET: ${TI_SECRET:-local-docker-demo-secret-change-me-0123456789}
+      TI_UPLOADS: /data/uploads
+      TI_CORS: ${TI_CORS:-}
+    volumes:
+      - uploads:/data/uploads
+
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["ollama"]
+    restart: unless-stopped
+    environment:
+      OLLAMA_ORIGINS: "*"
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+
+volumes:
+  pgdata:
+  uploads:
+  ollama:

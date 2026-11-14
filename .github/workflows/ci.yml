@@ -1,0 +1,72 @@
+# Checks every pull request and every push to main: Python tests, the PWA build, the Docker image.
+# Steps for the web app and the image skip themselves until web/ and the Dockerfile exist.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Python tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync --frozen
+      - run: uv run pytest -q -m "not ollama"
+
+  web:
+    name: Web build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: has
+        run: echo "web=$([ -f web/package.json ] && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - if: steps.has.outputs.web == 'yes'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - if: steps.has.outputs.web == 'yes'
+        working-directory: web
+        run: npm ci --no-audit --no-fund && npx vite build
+      - if: steps.has.outputs.web != 'yes'
+        run: echo "No web/ yet, skipping"
+
+  image:
+    name: Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: has
+        run: echo "docker=$([ -f Dockerfile ] && echo yes || echo no)" >> "$GITHUB_OUTPUT"
+      - if: steps.has.outputs.docker == 'yes'
+        uses: docker/setup-buildx-action@v3
+      - if: steps.has.outputs.docker == 'yes'
+        name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: stride:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - if: steps.has.outputs.docker == 'yes'
+        name: Image starts and answers /api/health
+        run: |
+          docker run -d --name stride -p 8000:8000 -e TI_SECRET=ci-only-secret-0123456789-0123456789 stride:ci
+          for i in $(seq 60); do curl -sf localhost:8000/api/health && exit 0; sleep 2; done
+          docker logs stride; exit 1
+      - if: steps.has.outputs.docker != 'yes'
+        run: echo "No Dockerfile yet, skipping"

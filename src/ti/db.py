@@ -268,7 +268,7 @@ def engine():
         url = config.DATABASE_URL
         if url.startswith("sqlite:///"):
             config.VAR_DIR.mkdir(parents=True, exist_ok=True)
-        _engine = create_engine(url, future=True,
+        _engine = create_engine(url, future=True, pool_pre_ping=True,
                                 connect_args={"check_same_thread": False} if url.startswith("sqlite") else {})
         if url.startswith("sqlite"):
             @event.listens_for(_engine, "connect")

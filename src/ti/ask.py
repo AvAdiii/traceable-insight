@@ -269,6 +269,8 @@ def merge(model: dict, rules: dict) -> dict:
     Explicit wording beats the model: a count ("pick 5") sets the limit, "how many" makes it a
     count, and flag words ("struggling", "missing tests") set the flag and its sort order.
     """
+    if not model:  # no model reading at all (fallback path): the rules parse is the answer
+        return dict(rules)
     out = dict(model)
     if rules.get("action") == "compare":  # "A vs B" wording is unambiguous; small models drop names, add tests
         return rules
